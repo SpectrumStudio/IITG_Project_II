@@ -5,6 +5,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_picker_demo/viewModel/homePageViewModel.dart';
 import 'package:provider/provider.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 
 class MyHomePage extends StatelessWidget {
 
@@ -29,6 +30,8 @@ class MyHomePage extends StatelessWidget {
           minimumAspectRatio: 1.0,
         )
     );
+    //GallerySaver.saveImage(croppedFile.path);
+
     return croppedFile;
   }
 
