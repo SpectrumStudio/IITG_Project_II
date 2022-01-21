@@ -1,13 +1,17 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_picker_demo/viewModel/homePageViewModel.dart';
 import 'package:provider/provider.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:gallery_saver/gallery_saver.dart';
+import 'package:chaquopy/chaquopy.dart';
 
 class MyHomePage extends StatelessWidget {
+  static const platform= const MethodChannel("com.flutter.epic/epic");
 
   Future<File> cropImage(var image)async{
     File croppedFile = await ImageCropper.cropImage(
@@ -30,8 +34,14 @@ class MyHomePage extends StatelessWidget {
           minimumAspectRatio: 1.0,
         )
     );
-    //GallerySaver.saveImage(croppedFile.path);
-
+    GallerySaver.saveImage(croppedFile.path);
+    //print(croppedFile.path);
+    //result["textOutputOrError"]
+    final Directory directory = await getApplicationDocumentsDirectory();
+    print(directory.path);
+    final File file = File('${directory.path}/path.txt');
+    await file.writeAsString(croppedFile.path);
+    //print("Path written!");
     return croppedFile;
   }
 
@@ -43,9 +53,22 @@ class MyHomePage extends StatelessWidget {
       var croppedImage = await cropImage(File(image.path));
       return croppedImage;
     }
+    final Directory directory = await getApplicationDocumentsDirectory();
     return File(image.path);
   }
 
+  void Printy() async{
+    String value;
+    try{
+      print("Java Function Printy called");
+      value=await platform.invokeMethod("Printy");
+    }
+    catch(e)
+    {
+      print(e);
+    }
+    print(value);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,6 +115,8 @@ class MyHomePage extends StatelessWidget {
                     ),
                     ElevatedButton(
                       onPressed: ()async{
+                        print("Debug ->");
+                        Printy();
                         var image = await getImageFromSource(ImageSource.gallery, viewModel.cropAfterPicked);
                         if(image==null)
                           return;
