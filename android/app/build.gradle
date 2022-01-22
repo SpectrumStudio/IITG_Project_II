@@ -57,12 +57,21 @@ android {
                 install "numpy"
                 install "opencv-contrib-python-headless"
             }
+            buildPython "C:/Users/rajar/AppData/Local/Programs/Python/Python38/python.exe"
         }
+
+
         applicationId "com.example.image_picker_demo"
         minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+    }
+
+    sourceSets{
+        main{
+            python.srcDir "src/main/python"
+        }
     }
 
     buildTypes {

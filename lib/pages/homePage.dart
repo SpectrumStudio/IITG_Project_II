@@ -115,8 +115,6 @@ class MyHomePage extends StatelessWidget {
                     ),
                     ElevatedButton(
                       onPressed: ()async{
-                        print("Debug ->");
-                        Printy();
                         var image = await getImageFromSource(ImageSource.gallery, viewModel.cropAfterPicked);
                         if(image==null)
                           return;
@@ -156,9 +154,18 @@ class MyHomePage extends StatelessWidget {
                       ),
                       child: Text('Crop sample',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
                     ),
-
                     const SizedBox(height: 20),
-
+                    ElevatedButton(
+                      onPressed: () async{
+                        print("Debug:");
+                        Printy();
+                      },
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.yellowAccent,
+                          textStyle: TextStyle(fontSize: 18,)
+                      ),
+                      child: Text('Analyze',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+                    ),
                   ],
                 ),
               );
