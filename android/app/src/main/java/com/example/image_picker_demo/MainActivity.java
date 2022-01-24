@@ -1,5 +1,6 @@
 package com.example.image_picker_demo;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.chaquo.python.PyObject;
@@ -30,12 +31,15 @@ public class MainActivity extends FlutterActivity {
             @Override
             public void onMethodCall(MethodCall methodCall, MethodChannel.Result result) {
                 if(methodCall.method.equals("Printy")){
+                    SharedPreferences prefs = getSharedPreferences("FlutterSharedPreferences", MODE_PRIVATE);
+                    String Path = prefs.getString("flutter."+"Path", null);
                     //Python Instance
                     Python py=Python.getInstance();
                     //Python Object
                     PyObject pyobj=py.getModule("myscript");
                     //Call Main Function
-                    PyObject obj=pyobj.callAttr("main");
+                    PyObject obj=pyobj.callAttr("main",Path);
+                    //result.success(obj.toString());
                     result.success(obj.toString());
                     //result.success("Hi From Java");
                 }

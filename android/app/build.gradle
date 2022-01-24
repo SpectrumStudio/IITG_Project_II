@@ -56,6 +56,8 @@ android {
                 install "pillow"
                 install "numpy"
                 install "opencv-contrib-python-headless"
+                install "scikit-image"
+                install "matplotlib"
             }
             buildPython "C:/Users/rajar/AppData/Local/Programs/Python/Python38/python.exe"
         }

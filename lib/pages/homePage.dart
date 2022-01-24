@@ -8,6 +8,7 @@ import 'package:image_picker_demo/viewModel/homePageViewModel.dart';
 import 'package:provider/provider.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:gallery_saver/gallery_saver.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:chaquopy/chaquopy.dart';
 
 class MyHomePage extends StatelessWidget {
@@ -37,11 +38,14 @@ class MyHomePage extends StatelessWidget {
     GallerySaver.saveImage(croppedFile.path);
     //print(croppedFile.path);
     //result["textOutputOrError"]
-    final Directory directory = await getApplicationDocumentsDirectory();
-    print(directory.path);
-    final File file = File('${directory.path}/path.txt');
-    await file.writeAsString(croppedFile.path);
+    //final Directory directory = await getApplicationDocumentsDirectory();
+    //print(directory.path);
+    //final File file = File('${directory.path}/path.txt');
+    //await file.writeAsString(croppedFile.path);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('Path', croppedFile.path.toString());
     //print("Path written!");
+    //print(file);
     return croppedFile;
   }
 
