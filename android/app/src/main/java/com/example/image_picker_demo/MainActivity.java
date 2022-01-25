@@ -2,6 +2,7 @@ package com.example.image_picker_demo;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 import com.chaquo.python.PyObject;
 import com.chaquo.python.Python;
@@ -22,6 +23,7 @@ public class MainActivity extends FlutterActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         GeneratedPluginRegistrant.registerWith(this.getFlutterEngine());
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         if(! Python.isStarted()){
             Python.start(new AndroidPlatform(this));
@@ -39,6 +41,10 @@ public class MainActivity extends FlutterActivity {
                     PyObject pyobj=py.getModule("myscript");
                     //Call Main Function
                     PyObject obj=pyobj.callAttr("main",Path);
+                    //Shared Preference to save the value of RGB and Intensity
+                    SharedPreferences.Editor RGBI = preferences.edit();
+                    RGBI.putString("Name",obj.toString());
+                    RGBI.apply();
                     //result.success(obj.toString());
                     result.success(obj.toString());
                     //result.success("Hi From Java");
