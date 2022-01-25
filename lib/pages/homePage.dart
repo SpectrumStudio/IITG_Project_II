@@ -11,7 +11,13 @@ import 'package:gallery_saver/gallery_saver.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:chaquopy/chaquopy.dart';
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   static const platform= const MethodChannel("com.flutter.epic/epic");
 
   Future<File> cropImage(var image)async{
@@ -95,14 +101,19 @@ class MyHomePage extends StatelessWidget {
                     if(viewModel.image==null)
                       Icon(Icons.camera,size: 100),
                     if(viewModel.image!=null)
-                      //Image.file(viewModel.image),
+                    //Image.file(viewModel.image),
 
                       Container(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20,right: 20),
-                          child: ClipOval(
-                            child: Image.file(
-                                viewModel.image,
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 20,right: 20),
+                            child: ClipOval(
+                              child: Image.file(
+
+                                  viewModel.image,
+                                  fit: BoxFit.fill
+                              ),
+
                             ),
                           ),
                         ),
@@ -138,8 +149,8 @@ class MyHomePage extends StatelessWidget {
                         viewModel.setImage(image);
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.yellowAccent,
-                        textStyle: TextStyle(fontSize: 18)
+                          primary: Colors.yellowAccent,
+                          textStyle: TextStyle(fontSize: 18)
                       ),
                       child: Text('Get sample from camera',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
                     ),
@@ -180,3 +191,8 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
