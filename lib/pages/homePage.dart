@@ -1,5 +1,8 @@
 import 'dart:io';
+import 'dart:core';
 
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -9,10 +12,26 @@ import 'package:provider/provider.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:chaquopy/chaquopy.dart';
 
-class MyHomePage extends StatelessWidget {
+import 'mlPage.dart';
+
+
+class MyHomePage extends StatefulWidget {
+
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   static const platform= const MethodChannel("com.flutter.epic/epic");
+  String RGBI;
+  var RGBIlist;
+  var R,G,B,I;
+  var data;
+
 
   Future<File> cropImage(var image)async{
     File croppedFile = await ImageCropper.cropImage(
@@ -46,6 +65,7 @@ class MyHomePage extends StatelessWidget {
     prefs.setString('Path', croppedFile.path.toString());
     //print("Path written!");
     //print(file);
+    Printy();
     return croppedFile;
   }
 
@@ -66,12 +86,32 @@ class MyHomePage extends StatelessWidget {
     try{
       print("Java Function Printy called");
       value=await platform.invokeMethod("Printy");
+      RGBI=value;
+      RGBIlist=RGBI.split(" ");
+      print("Red Value:"+RGBIlist[0]);
+      R=RGBIlist[0];
+      print("Green Value:"+RGBIlist[1]);
+      G=RGBIlist[1];
+      print("Blue Value:"+RGBIlist[2]);
+      B=RGBIlist[2];
+      print("Intensity Value:"+RGBIlist[3]);
+      I=RGBIlist[3];
+      Fluttertoast.showToast(
+          msg: "R:$R G:$G B:$B I:$I",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
     }
     catch(e)
     {
       print(e);
     }
-    print(value);
+
+
   }
 
   @override
@@ -95,14 +135,14 @@ class MyHomePage extends StatelessWidget {
                     if(viewModel.image==null)
                       Icon(Icons.camera,size: 100),
                     if(viewModel.image!=null)
-                      //Image.file(viewModel.image),
+                    //Image.file(viewModel.image),
 
                       Container(
                         child: Padding(
                           padding: const EdgeInsets.only(left: 20,right: 20),
                           child: ClipOval(
                             child: Image.file(
-                                viewModel.image,
+                              viewModel.image,
                             ),
                           ),
                         ),
@@ -138,8 +178,8 @@ class MyHomePage extends StatelessWidget {
                         viewModel.setImage(image);
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.yellowAccent,
-                        textStyle: TextStyle(fontSize: 18)
+                          primary: Colors.yellowAccent,
+                          textStyle: TextStyle(fontSize: 18)
                       ),
                       child: Text('Get sample from camera',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
                     ),
@@ -162,7 +202,18 @@ class MyHomePage extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () async{
                         print("Debug:");
-                        Printy();
+                        //Printy();
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MlPage(
+                                red:R,green:G,blue:B, intensity:I,
+                              )),
+                        );
+                        //print("RGBI:"+RGBISuccess.toString());
+                        //SharedPreferences prefs = await SharedPreferences.getInstance();
+                        //var RGBI = (prefs.getString('RGBI')??'');
                       },
                       style: ElevatedButton.styleFrom(
                           primary: Colors.yellowAccent,
@@ -170,6 +221,7 @@ class MyHomePage extends StatelessWidget {
                       ),
                       child: Text('Analyze',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
                     ),
+                    const SizedBox(height: 20),
                   ],
                 ),
               );
@@ -180,3 +232,4 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
+

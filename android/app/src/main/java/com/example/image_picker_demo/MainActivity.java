@@ -42,9 +42,9 @@ public class MainActivity extends FlutterActivity {
                     //Call Main Function
                     PyObject obj=pyobj.callAttr("main",Path);
                     //Shared Preference to save the value of RGB and Intensity
-                    SharedPreferences.Editor RGBI = preferences.edit();
-                    RGBI.putString("Name",obj.toString());
-                    RGBI.apply();
+                    //SharedPreferences.Editor RGBI = preferences.edit();
+                    //RGBI.putString("RGBI",obj.toString());
+                    //RGBI.apply();
                     //result.success(obj.toString());
                     result.success(obj.toString());
                     //result.success("Hi From Java");
