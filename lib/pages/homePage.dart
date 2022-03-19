@@ -15,8 +15,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:chaquopy/chaquopy.dart';
 
-import 'mlPage.dart';
 
+import 'mlPage.dart';
+//void main() =>runApp(SplashScreen());
 
 class MyHomePage extends StatefulWidget {
 
@@ -54,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
           minimumAspectRatio: 1.0,
         )
     );
-    GallerySaver.saveImage(croppedFile.path);
+    //GallerySaver.saveImage(croppedFile.path);
     //print(croppedFile.path);
     //result["textOutputOrError"]
     //final Directory directory = await getApplicationDocumentsDirectory();

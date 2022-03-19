@@ -19,7 +19,7 @@ class _MlPageState extends State<MlPage> {
     super.initState();
     predValue = "click VERIFY button";
   }
-  
+
   Future<void> predData(var red,var green, var blue, var intensity) async {
     final interpreter = await Interpreter.fromAsset('trained_model.tflite');
     var input = [

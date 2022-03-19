@@ -49,15 +49,16 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         ndk {
-            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+            //abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+            abiFilters "arm64-v8a"
         }
         python{
             pip{
                 install "pillow"
                 install "numpy"
                 install "opencv-contrib-python-headless"
-                install "scikit-image"
-                install "matplotlib"
+                //install "scikit-image"
+                //install "matplotlib"
             }
             buildPython "C:/Users/rajar/AppData/Local/Programs/Python/Python38/python.exe"
         }
