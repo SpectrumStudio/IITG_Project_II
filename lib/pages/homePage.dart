@@ -28,14 +28,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   static const platform= const MethodChannel("com.flutter.epic/epic");
-  String RGBI;
+  String RGBI="";
   var RGBIlist;
   var R,G,B,I;
   var data;
 
 
   Future<File> cropImage(var image)async{
-    File croppedFile = await ImageCropper.cropImage(
+    File? croppedFile = await ImageCropper.cropImage(
         sourcePath: image.path, cropStyle: CropStyle.circle,
         aspectRatioPresets: [
           CropAspectRatioPreset.square,
@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //final File file = File('${directory.path}/path.txt');
     //await file.writeAsString(croppedFile.path);
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('Path', croppedFile.path.toString());
+    prefs.setString('Path', croppedFile!.path.toString());
     //print("Path written!");
     //print(file);
     Printy();
@@ -72,14 +72,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<File> getImageFromSource(ImageSource source, bool toCrop)async{
     var image = await ImagePicker().getImage(source: source);
-    if(image==null)
-      return null;
+    //if(image==null)
+    //  return null;
     if(toCrop){
-      var croppedImage = await cropImage(File(image.path));
+      var croppedImage = await cropImage(File(image!.path));
       return croppedImage;
     }
     final Directory directory = await getApplicationDocumentsDirectory();
-    return File(image.path);
+    return File(image!.path);
   }
 
   void Printy() async{
@@ -155,7 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                       value: viewModel.cropAfterPicked,
                       onChanged: (value){
-                        viewModel.setCropAfterPicker(value);
+                        viewModel.setCropAfterPicker(value!);
                       },
                     ),
                     ElevatedButton(
@@ -209,7 +209,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => MlPage(
-                                red:R,green:G,blue:B, intensity:I,
+                                red:R,green:G,blue:B, intensity:I
                               )),
                         );
                         //print("RGBI:"+RGBISuccess.toString());

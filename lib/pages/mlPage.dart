@@ -5,7 +5,7 @@ import 'package:tflite_flutter/tflite_flutter.dart';
 
 class MlPage extends StatefulWidget {
   final String red,green,blue,intensity;
-  MlPage({Key key, @required this.red, @required this.green, @required this.blue, @required this.intensity}) : super(key: key);
+  MlPage({Key? key, required this.red, required this.green, required this.blue, required this.intensity}) : super(key: key);
 
   @override
   _MlPageState createState() => _MlPageState();
