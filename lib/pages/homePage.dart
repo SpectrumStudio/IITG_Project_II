@@ -1,8 +1,7 @@
 import 'dart:io';
 import 'dart:core';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -10,12 +9,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:image_picker_demo/viewModel/homePageViewModel.dart';
 import 'package:provider/provider.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:gallery_saver/gallery_saver.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tflite_flutter/tflite_flutter.dart';
-import 'package:chaquopy/chaquopy.dart';
 
 
+import 'login.dart';
 import 'mlPage.dart';
 //void main() =>runApp(SplashScreen());
 
@@ -118,9 +115,26 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Sample Picker'),
-        centerTitle: true,
+      appBar: AppBar(  
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [            
+            Text("Sample Picker"),
+            ElevatedButton(
+              onPressed: () async => {
+                await FirebaseAuth.instance.signOut(),
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Login(),
+                    ),
+                    (route) => false)
+              },
+              child: Text('Logout'),
+              style: ElevatedButton.styleFrom(primary: Colors.cyan),
+            )
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         child: ChangeNotifierProvider<HomePageViewModel>(

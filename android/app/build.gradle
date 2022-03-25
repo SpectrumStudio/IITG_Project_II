@@ -31,8 +31,8 @@ android {
     compileSdkVersion flutter.compileSdkVersion
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
     kotlinOptions {
@@ -61,7 +61,7 @@ android {
                 //install "scikit-image"
                 //install "matplotlib"
             }
-            buildPython "C:/Users/rajar/AppData/Local/Programs/Python/Python38/python.exe"
+            buildPython "C:/Users/kusha/AppData/Local/Programs/Python/Python37-32/python.exe"
         }
 
 
