@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class HomePageViewModel extends ChangeNotifier{
 
   var image;
-  bool cropAfterPicked = false;
+  bool cropAfterPicked = true;
 
   Future setCropAfterPicker(bool value)async{
     this.cropAfterPicked = value;

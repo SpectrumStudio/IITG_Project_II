@@ -159,16 +159,16 @@ class _MyHomePageState extends State<MyHomePage> {
                     const SizedBox(
                       height: 30,
                     ),
-                    CheckboxListTile(
-                      title: Text(
-                        'Crop after picked',
-                        style: TextStyle(color: Colors.indigo, fontSize: 18),
-                      ),
-                      value: viewModel.cropAfterPicked,
-                      onChanged: (value) {
-                        viewModel.setCropAfterPicker(value!);
-                      },
-                    ),
+                    // CheckboxListTile(
+                    //   title: Text(
+                    //     'Crop after picked',
+                    //     style: TextStyle(color: Colors.indigo, fontSize: 18),
+                    //   ),
+                    //   value: viewModel.cropAfterPicked,
+                    //   onChanged: (value) {
+                    //     viewModel.setCropAfterPicker(value!);
+                    //   },
+                    // ),
                     ElevatedButton(
                       onPressed: () async {
                         var image = await getImageFromSource(
