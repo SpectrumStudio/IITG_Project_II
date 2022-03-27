@@ -239,13 +239,15 @@ class _LoginState extends State<Login> {
                     FloatingActionButton.extended(
                       onPressed: () async {
                         await signInWithGoogle();
-                        setState(() {});
-                        Navigator.pushAndRemoveUntil(
+                        setState(() {
+                          Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => MyHomePage(),
+                              builder: (context) => TestList(),
                             ),
                             (route) => false);
+                        });
+                        
                       },
                       icon: Image.asset(
                         'assets/google_logo.png',

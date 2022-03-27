@@ -106,30 +106,31 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text("Sample Picker"),
-            IconButton(
-              onPressed: () async => {
-                await FirebaseAuth.instance.signOut(),
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Login(),
-                    ),
-                    (route) => false),
-                await GoogleSignIn().signOut(),
-              },
-              icon: const Icon(
-                Icons.logout,
-                color: Color.fromARGB(255, 112, 33, 33),
-              ),
-            )
-          ],
-        ),
-      ),
+      // appBar: AppBar(
+      //   title: Row(
+      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //     children: [
+      //       Text("Sample Picker"),
+      //       IconButton(
+      //         onPressed: () async => {
+      //           await FirebaseAuth.instance.signOut(),
+      //           Navigator.pushAndRemoveUntil(
+      //               context,
+      //               MaterialPageRoute(
+      //                 builder: (context) => Login(),
+      //               ),
+      //               (route) => false),
+      //           await GoogleSignIn().signOut(),
+      //         },
+      //         icon: const Icon(
+      //           Icons.logout,
+      //           color: Color.fromARGB(255, 112, 33, 33),
+      //         ),
+      //       )
+      //     ],
+      //   ),
+      // ),
+      
       body: SingleChildScrollView(
         child: ChangeNotifierProvider<HomePageViewModel>(
           create: (context) => HomePageViewModel(),
@@ -139,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Column(
                   children: [
                     const SizedBox(
-                      height: 30,
+                      height: 60,
                     ),
                     if (viewModel.image == null) Icon(Icons.camera, size: 100),
                     if (viewModel.image != null)

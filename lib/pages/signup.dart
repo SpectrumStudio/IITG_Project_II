@@ -97,9 +97,9 @@ class _SignupState extends State<Signup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("User SignUp"),
-      ),
+      // appBar: AppBar(
+      //   title: Text("User SignUp"),
+      // ),
       body: Form(
         key: _formKey,
         child: Padding(
