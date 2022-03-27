@@ -15,6 +15,8 @@ import 'package:provider/provider.dart';
 
 var userName=""; 
 var userEmail= "";
+var email = "";
+var password = "";
 
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
@@ -29,8 +31,7 @@ class _LoginState extends State<Login> {
   bool isLoading = false;
   final _formKey = GlobalKey<FormState>();
 
-  var email = "";
-  var password = "";
+  
   // Create a text controller and use it to retrieve the current value
   // of the TextField.
   final emailController = TextEditingController();
@@ -45,7 +46,7 @@ class _LoginState extends State<Login> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => MyHomePage(),
+          builder: (context) => TestList(),
         ),
       );
       ScaffoldMessenger.of(context).showSnackBar(

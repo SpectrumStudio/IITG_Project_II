@@ -13,6 +13,10 @@ class TestList extends StatefulWidget {
 }
 
 class _TestListState extends State<TestList> {
+
+  
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,21 +25,25 @@ class _TestListState extends State<TestList> {
         SizedBox(
           height: 60,
         ),
-        Row(
+        Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              "Welcome,",
-              style: TextStyle(
-                  fontSize: 26, color: Color.fromARGB(255, 9, 112, 196)),
+            Center(
+              child: Text(
+                "Welcome,",
+                style: TextStyle(
+                    fontSize: 26, color: Color.fromARGB(255, 9, 112, 196)),
+              ),
             ),
             SizedBox(
-              width: 8,
+              height: 10,
             ),
-            Text(
-              userName,
-              style: TextStyle(
-                  fontSize: 26, color: Color.fromARGB(255, 98, 27, 131)),
+            Center(
+              child: Text(
+                (email=="")?userName:email.substring(0,email.indexOf('@')),
+                style: TextStyle(
+                    fontSize: 26, color: Color.fromARGB(255, 98, 27, 131)),
+              ),
             ),
           ],
         ),
@@ -82,13 +90,15 @@ class _TestListState extends State<TestList> {
                     ),
                     (route) => false);
                 await GoogleSignIn().signOut();
+                userEmail="";
+                userName="";
+                email="";
             },
             elevation: 6.0,
             fillColor: Colors.white,
             child: FaIcon(
               FontAwesomeIcons.arrowRightFromBracket,
-              size: 35.0,
-              
+              size: 35.0,            
             ),
             padding: EdgeInsets.all(16.0),
             shape: CircleBorder(),
