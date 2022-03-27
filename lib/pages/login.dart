@@ -216,10 +216,65 @@ class _LoginState extends State<Login> {
                   ],
                 ),
               ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                child: Column(
+                  children: [
+                    Center(
+                        child: Text(
+                      "OR",
+                      style: TextStyle(fontSize: 20),
+                    )),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    FloatingActionButton.extended(
+                      onPressed: () async {
+                        await signInWithGoogle();
+                        setState(() {});
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MyHomePage(),
+                            ),
+                            (route) => false);
+                      },
+                      icon: Image.asset(
+                        'assets/google_logo.png',
+                        height: 28,
+                        width: 28,
+                      ),
+                      label: Text('Sign in with Google'),
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black,
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser!.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 }
