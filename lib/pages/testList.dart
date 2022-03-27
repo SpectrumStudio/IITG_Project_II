@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker_demo/pages/homePage.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker_demo/pages/login.dart';
 
 class TestList extends StatefulWidget {
@@ -51,7 +52,7 @@ class _TestListState extends State<TestList> {
             SizedBox(
               height: 10,
             ),
-            TextButton(
+            ElevatedButton(
               onPressed: () {
                 Navigator.push(
                           context,
@@ -68,16 +69,10 @@ class _TestListState extends State<TestList> {
             ),
           ],
         ),
-        SizedBox(height: 50,),
+        SizedBox(height: 80,),
+        
         Container(
-          child: ActionChip(           
-            padding: EdgeInsets.all(2.0),
-            elevation: 6.0,
-            avatar: CircleAvatar(   
-              backgroundColor: Colors.blueAccent,
-              child: Icon(Icons.logout_outlined),             
-            ),
-            label: const Text('Signout'),
+          child: RawMaterialButton(
             onPressed: () async {
               await FirebaseAuth.instance.signOut();
                 Navigator.pushAndRemoveUntil(
@@ -88,10 +83,14 @@ class _TestListState extends State<TestList> {
                     (route) => false);
                 await GoogleSignIn().signOut();
             },
-            backgroundColor: Color.fromARGB(255, 255, 255, 255),
-            shape: StadiumBorder(
-              side: BorderSide(width: 2,
-              color: Colors.blueAccent)),
+            elevation: 6.0,
+            fillColor: Colors.white,
+            child: FaIcon(
+              FontAwesomeIcons.arrowRightFromBracket,
+              size: 35.0,
+            ),
+            padding: EdgeInsets.all(16.0),
+            shape: CircleBorder(),
           )
         ),
       ],
