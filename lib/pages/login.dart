@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker_demo/main.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker_demo/pages/forgot_password.dart';
 import 'package:image_picker_demo/pages/homePage.dart';
 import 'package:image_picker_demo/pages/signup.dart';
@@ -249,11 +249,12 @@ class _LoginState extends State<Login> {
                         });
                         
                       },
-                      icon: Image.asset(
-                        'assets/google_logo.png',
-                        height: 28,
-                        width: 28,
-                      ),
+                      // icon: Image.asset(
+                      //   'assets/google_logo.png',
+                      //   height: 28,
+                      //   width: 28,
+                      // ),
+                      icon: FaIcon(FontAwesomeIcons.google),
                       label: Text(
                         'Sign in with Google',
                         style: TextStyle(fontSize: 16),

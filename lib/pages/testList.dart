@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker_demo/pages/homePage.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker_demo/pages/login.dart';
 
 class TestList extends StatefulWidget {
@@ -75,7 +76,7 @@ class _TestListState extends State<TestList> {
             elevation: 6.0,
             avatar: CircleAvatar(   
               backgroundColor: Colors.blueAccent,
-              child: Icon(Icons.logout_outlined),             
+              child: FaIcon(FontAwesomeIcons.arrowRightFromBracket),             
             ),
             label: const Text('Signout'),
             onPressed: () async {
