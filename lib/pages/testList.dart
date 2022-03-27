@@ -88,6 +88,7 @@ class _TestListState extends State<TestList> {
             child: FaIcon(
               FontAwesomeIcons.arrowRightFromBracket,
               size: 35.0,
+              
             ),
             padding: EdgeInsets.all(16.0),
             shape: CircleBorder(),
