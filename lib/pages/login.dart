@@ -9,8 +9,12 @@ import 'package:image_picker_demo/main.dart';
 import 'package:image_picker_demo/pages/forgot_password.dart';
 import 'package:image_picker_demo/pages/homePage.dart';
 import 'package:image_picker_demo/pages/signup.dart';
+import 'package:image_picker_demo/pages/testList.dart';
 import 'package:image_picker_demo/pages/user/user_main.dart';
 import 'package:provider/provider.dart';
+
+var userName=""; 
+var userEmail= "";
 
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
@@ -20,6 +24,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  //var userName="";
+  
   bool isLoading = false;
   final _formKey = GlobalKey<FormState>();
 
@@ -93,9 +99,9 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("User Login"),
-      ),
+      // appBar: AppBar(
+      //   title: Text("User Login"),
+      // ),
       body: Form(
         key: _formKey,
         child: Padding(
@@ -228,7 +234,7 @@ class _LoginState extends State<Login> {
                       style: TextStyle(fontSize: 20),
                     )),
                     SizedBox(
-                      height: 20,
+                      height: 26,
                     ),
                     FloatingActionButton.extended(
                       onPressed: () async {
@@ -246,7 +252,10 @@ class _LoginState extends State<Login> {
                         height: 28,
                         width: 28,
                       ),
-                      label: Text('Sign in with Google'),
+                      label: Text(
+                        'Sign in with Google',
+                        style: TextStyle(fontSize: 16),
+                      ),
                       backgroundColor: Colors.white,
                       foregroundColor: Colors.black,
                     ),
@@ -273,6 +282,9 @@ class _LoginState extends State<Login> {
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
+
+    userEmail = googleUser.email;
+    userName = googleUser.displayName!;
 
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
