@@ -1,9 +1,16 @@
+import 'dart:io';
+import 'dart:core';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:image_picker_demo/main.dart';
+
 import 'package:image_picker_demo/pages/forgot_password.dart';
 import 'package:image_picker_demo/pages/homePage.dart';
 import 'package:image_picker_demo/pages/signup.dart';
 import 'package:image_picker_demo/pages/user/user_main.dart';
+import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
@@ -13,6 +20,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  bool isLoading = false;
   final _formKey = GlobalKey<FormState>();
 
   var email = "";
@@ -24,21 +32,34 @@ class _LoginState extends State<Login> {
 
   userLogin() async {
     try {
-      email=email.trim();
-      password=password.trim();
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+      email = email.trim();
+      password = password.trim();
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) => MyHomePage(),
         ),
       );
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.orangeAccent,
+          duration: const Duration(seconds: 2),
+          content: Text(
+            "Welcome",
+            textAlign: TextAlign.start,
+            style: TextStyle(fontSize: 18.0, color: Colors.black),
+          ),
+        ),
+      );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        print("No User Found for that Email");
+        //print("No User Found for that Email");
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.orangeAccent,
+            duration: const Duration(seconds: 2),
             content: Text(
               "No User Found for that Email",
               style: TextStyle(fontSize: 18.0, color: Colors.black),
@@ -46,10 +67,11 @@ class _LoginState extends State<Login> {
           ),
         );
       } else if (e.code == 'wrong-password') {
-        print("Wrong Password Provided by User");
+        // print("Wrong Password Provided by User");
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.orangeAccent,
+            duration: const Duration(seconds: 2),
             content: Text(
               "Wrong Password Provided by User",
               style: TextStyle(fontSize: 18.0, color: Colors.black),
@@ -128,24 +150,33 @@ class _LoginState extends State<Login> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        // Validate returns true if the form is valid, otherwise false.
-                        if (_formKey.currentState!.validate()) {
-                          setState(() {
-                            //print("Hello");
-                            email = emailController.text;
-                            print(email);
-                            password = passwordController.text;
-                          });
-                          userLogin();
-                        }
-                      },
-                      child: Text(
-                        'Login',
-                        style: TextStyle(fontSize: 18.0),
-                      ),
-                    ),
+                    isLoading
+                        ? CircularProgressIndicator(
+                            color: Colors.orange,
+                          )
+                        : ElevatedButton(
+                            onPressed: () async {
+                              // Validate returns true if the form is valid, otherwise false.
+                              if (_formKey.currentState!.validate()) {
+                                setState(() {
+                                  //print("Hello");
+                                  email = emailController.text;
+                                  //print(email);
+                                  password = passwordController.text;
+                                });
+                                userLogin();
+                                if (isLoading) return;
+                                setState(() => isLoading = true);
+                                await Future.delayed(Duration(seconds: 1));
+                                setState(() => isLoading = false);
+                              }
+                            },
+                            child: Text(
+                              'Login',
+                              style: TextStyle(fontSize: 18.0),
+                            ),
+                          ),
+                    SizedBox(width: 12),
                     TextButton(
                       onPressed: () => {
                         Navigator.push(
@@ -178,23 +209,13 @@ class _LoginState extends State<Login> {
                             ),
                             (route) => false)
                       },
-                      child: Text('Signup'),
+                      child: Text('Signup',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16)),
                     ),
-                    // TextButton(
-                    //   onPressed: () => {
-                    //     Navigator.pushAndRemoveUntil(
-                    //         context,
-                    //         PageRouteBuilder(
-                    //           pageBuilder: (context, a, b) => UserMain(),
-                    //           transitionDuration: Duration(seconds: 0),
-                    //         ),
-                    //         (route) => false)
-                    //   },
-                    //   child: Text('Dashboard'),
-                    // ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

@@ -14,7 +14,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'login.dart';
 import 'mlPage.dart';
-//void main() =>runApp(SplashScreen());
 
 class MyHomePage extends StatefulWidget {
 
@@ -115,12 +114,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(  
+      appBar: AppBar(    
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,         
           children: [            
             Text("Sample Picker"),
-            ElevatedButton(
+            IconButton(
               onPressed: () async => {
                 await FirebaseAuth.instance.signOut(),
                 Navigator.pushAndRemoveUntil(
@@ -129,9 +128,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       builder: (context) => Login(),
                     ),
                     (route) => false)
-              },
-              child: Text('Logout'),
-              style: ElevatedButton.styleFrom(primary: Colors.cyan),
+              },              
+              icon: const Icon(Icons.logout, color: Color.fromARGB(255, 112, 33, 33),),
             )
           ],
         ),

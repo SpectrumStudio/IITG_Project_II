@@ -11,6 +11,7 @@ class Signup extends StatefulWidget {
 
 class _SignupState extends State<Signup> {
   final _formKey = GlobalKey<FormState>();
+  bool isLoading = false;
 
   var email = "";
   var password = "";
@@ -41,7 +42,7 @@ class _SignupState extends State<Signup> {
         print(userCredential);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            backgroundColor: Colors.redAccent,
+            backgroundColor: Color.fromARGB(255, 253, 117, 117),
             content: Text(
               "Registered Successfully. Please Login..",
               style: TextStyle(fontSize: 20.0),
@@ -56,7 +57,7 @@ class _SignupState extends State<Signup> {
         );
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
-          print("Password Provided is too Weak");
+          //print("Password Provided is too Weak");
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               backgroundColor: Colors.orangeAccent,
@@ -67,7 +68,7 @@ class _SignupState extends State<Signup> {
             ),
           );
         } else if (e.code == 'email-already-in-use') {
-          print("Account Already exists");
+          //print("Account Already exists");
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               backgroundColor: Colors.orangeAccent,
@@ -80,7 +81,7 @@ class _SignupState extends State<Signup> {
         }
       }
     } else {
-      print("Password and Confirm Password doesn't match");
+      //print("Password and Confirm Password doesn't match");
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Colors.orangeAccent,
@@ -169,12 +170,14 @@ class _SignupState extends State<Signup> {
                   },
                 ),
               ),
+              SizedBox(height: 16),
               Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ElevatedButton(
-                      onPressed: () {
+                    isLoading ? CircularProgressIndicator(color: Colors.orange,)
+                    : ElevatedButton(
+                      onPressed: () async {
                         // Validate returns true if the form is valid, otherwise false.
                         if (_formKey.currentState!.validate()) {
                           setState(() {
@@ -183,6 +186,10 @@ class _SignupState extends State<Signup> {
                             confirmPassword = confirmPasswordController.text;
                           });
                           registration();
+                          if(isLoading) return;
+                          setState(() => isLoading = true);
+                          await Future.delayed(Duration(seconds:  1));
+                          setState(() => isLoading=false);
                         }
                       },
                       child: Text(
@@ -193,6 +200,7 @@ class _SignupState extends State<Signup> {
                   ],
                 ),
               ),
+              
               Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

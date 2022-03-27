@@ -40,6 +40,10 @@ dependencies:
   starflut: ^1.0.0
   firebase_auth: ^3.3.11
   firebase_core: ^1.13.1
+  double_back_to_close_app: ^2.1.0
+  flutter_native_splash: ^0.3.2
+  google_sign_in: ^5.2.4
+  get: ^4.6.1
 
 dev_dependencies:
   flutter_test:
