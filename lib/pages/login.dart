@@ -248,7 +248,17 @@ class _LoginState extends State<Login> {
                             ),
                             (route) => false);
                         });
-                        
+                        ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Colors.orangeAccent,
+                          duration: const Duration(seconds: 2),
+                          content: Text(
+                            "Welcome",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(fontSize: 18.0, color: Colors.black),
+                          ),
+                        ),
+                      );
                       },
                       // icon: Image.asset(
                       //   'assets/google_logo.png',
