@@ -249,24 +249,25 @@ class _LoginState extends State<Login> {
                                 builder: (context) => TestList(),
                               ),
                               (route) => false);
-                        }
-
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            backgroundColor: Color.fromARGB(255, 255, 255, 255),
-                            duration: const Duration(seconds: 2),
-                            elevation: 6.0,
-                            content: Text(
-                              'Welcome, ' +
-                                  ((email == "")
-                                      ? userName
-                                      : email.substring(0, email.indexOf('@'))),
-                              textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                  fontSize: 18.0, color: Colors.black),
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor:
+                                  Color.fromARGB(255, 255, 255, 255),
+                              duration: const Duration(seconds: 2),
+                              elevation: 6.0,
+                              content: Text(
+                                'Welcome, ' +
+                                    ((email == "")
+                                        ? userName
+                                        : email.substring(
+                                            0, email.indexOf('@'))),
+                                textAlign: TextAlign.justify,
+                                style: TextStyle(
+                                    fontSize: 18.0, color: Colors.black),
+                              ),
                             ),
-                          ),
-                        );
+                          );
+                        }
                       },
                       // icon: Image.asset(
                       //   'assets/google_logo.png',
