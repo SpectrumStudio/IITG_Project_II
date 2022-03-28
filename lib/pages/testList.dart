@@ -6,6 +6,7 @@ import 'package:image_picker_demo/pages/homePage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker_demo/pages/login.dart';
 
+
 class TestList extends StatefulWidget {
   const TestList({Key? key}) : super(key: key);
 
@@ -14,6 +15,8 @@ class TestList extends StatefulWidget {
 }
 
 class _TestListState extends State<TestList> {
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +35,7 @@ class _TestListState extends State<TestList> {
               Center(
                   child: CircleAvatar(
                 radius: 60.0,
+                
                 backgroundImage: NetworkImage(dp),
                 backgroundColor: Colors.transparent,
               )),

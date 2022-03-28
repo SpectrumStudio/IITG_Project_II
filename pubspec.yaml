@@ -44,6 +44,7 @@ dependencies:
   get: ^4.6.1
   font_awesome_flutter: ^10.1.0
   flutter_native_splash: ^2.1.2+1
+  flutter_profile_picture: ^1.0.2
 
 flutter_native_splash:
   color: "#ffffff"
