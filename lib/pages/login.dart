@@ -13,8 +13,8 @@ import 'package:image_picker_demo/pages/testList.dart';
 import 'package:image_picker_demo/pages/user/user_main.dart';
 import 'package:provider/provider.dart';
 
-var userName=""; 
-var userEmail= "";
+var userName = "";
+var userEmail = "";
 var email = "";
 var password = "";
 
@@ -26,12 +26,9 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  //var userName="";
-  
   bool isLoading = false;
   final _formKey = GlobalKey<FormState>();
 
-  
   // Create a text controller and use it to retrieve the current value
   // of the TextField.
   final emailController = TextEditingController();
@@ -51,11 +48,15 @@ class _LoginState extends State<Login> {
       );
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          backgroundColor: Colors.orangeAccent,
+          backgroundColor: Color.fromARGB(255, 255, 255, 255),
           duration: const Duration(seconds: 2),
+          elevation: 6.0,
           content: Text(
-            "Welcome",
-            textAlign: TextAlign.start,
+            'Welcome, ' +
+                ((email == "")
+                    ? userName
+                    : email.substring(0, email.indexOf('@'))),
+            textAlign: TextAlign.justify,
             style: TextStyle(fontSize: 18.0, color: Colors.black),
           ),
         ),
@@ -239,26 +240,33 @@ class _LoginState extends State<Login> {
                     ),
                     FloatingActionButton.extended(
                       onPressed: () async {
-                        await signInWithGoogle();
-                        setState(() {
+                        bool success = await signInWithGoogle();
+
+                        if (success) {
                           Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => TestList(),
-                            ),
-                            (route) => false);
-                        });
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => TestList(),
+                              ),
+                              (route) => false);
+                        }
+
                         ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          backgroundColor: Colors.orangeAccent,
-                          duration: const Duration(seconds: 2),
-                          content: Text(
-                            "Welcome",
-                            textAlign: TextAlign.start,
-                            style: TextStyle(fontSize: 18.0, color: Colors.black),
+                          SnackBar(
+                            backgroundColor: Color.fromARGB(255, 255, 255, 255),
+                            duration: const Duration(seconds: 2),
+                            elevation: 6.0,
+                            content: Text(
+                              'Welcome, ' +
+                                  ((email == "")
+                                      ? userName
+                                      : email.substring(0, email.indexOf('@'))),
+                              textAlign: TextAlign.justify,
+                              style: TextStyle(
+                                  fontSize: 18.0, color: Colors.black),
+                            ),
                           ),
-                        ),
-                      );
+                        );
                       },
                       // icon: Image.asset(
                       //   'assets/google_logo.png',
@@ -283,24 +291,34 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Future<UserCredential> signInWithGoogle() async {
+  Future<bool> signInWithGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
+    if (googleUser == null) {
+      return false;
+    }
+
     // Obtain the auth details from the request
     final GoogleSignInAuthentication? googleAuth =
-        await googleUser!.authentication;
+        await googleUser.authentication;
 
     // Create a new credential
-    final credential = GoogleAuthProvider.credential(
+    final OAuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
 
-    userEmail = googleUser.email;
-    userName = googleUser.displayName!;
-
     // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+    UserCredential usercreds =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+
+    // ignore: unnecessary_null_comparison
+    if (usercreds != null) {
+      userEmail = googleUser.email;
+      userName = googleUser.displayName!;
+    }
+
+    return true;
   }
 }
