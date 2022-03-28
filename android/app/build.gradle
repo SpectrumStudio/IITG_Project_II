@@ -61,7 +61,7 @@ android {
                 //install "scikit-image"
                 //install "matplotlib"
             }
-            buildPython "C:/Users/kusha/AppData/Local/Programs/Python/Python37-32/python.exe"
+            buildPython "C:/Users/rajar/AppData/Local/Programs/Python/Python37-32/python.exe"
         }
 
 
