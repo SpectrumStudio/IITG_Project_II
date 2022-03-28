@@ -49,7 +49,7 @@ class _LoginState extends State<Login> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Color.fromARGB(255, 255, 255, 255),
-          duration: const Duration(seconds: 2),
+          duration: const Duration(seconds: 1),
           elevation: 6.0,
           content: Text(
             'Welcome, ' +
@@ -253,7 +253,7 @@ class _LoginState extends State<Login> {
                             SnackBar(
                               backgroundColor:
                                   Color.fromARGB(255, 255, 255, 255),
-                              duration: const Duration(seconds: 2),
+                              duration: const Duration(seconds: 1),
                               elevation: 6.0,
                               content: Text(
                                 'Welcome, ' +
