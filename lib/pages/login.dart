@@ -17,6 +17,7 @@ var userName = "";
 var userEmail = "";
 var email = "";
 var password = "";
+var dp = "";
 
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
@@ -318,6 +319,7 @@ class _LoginState extends State<Login> {
     if (usercreds != null) {
       userEmail = googleUser.email;
       userName = googleUser.displayName!;
+      dp = googleUser.photoUrl!.replaceAll("s96-c", "s400-c");
     }
 
     return true;

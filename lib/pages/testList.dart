@@ -14,16 +14,14 @@ class TestList extends StatefulWidget {
 }
 
 class _TestListState extends State<TestList> {
-
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: DoubleBackToCloseApp(
-        snackBar: const SnackBar(
-            content: Text('Tap back again to signout and exit'),
-          ),
-        child: Column(
+        body: DoubleBackToCloseApp(
+      snackBar: const SnackBar(
+        content: Text('Tap back again to signout and exit'),
+      ),
+      child: Column(
         children: [
           SizedBox(
             height: 60,
@@ -31,6 +29,15 @@ class _TestListState extends State<TestList> {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Center(
+                  child: CircleAvatar(
+                radius: 60.0,
+                backgroundImage: NetworkImage(dp),
+                backgroundColor: Colors.transparent,
+              )),
+              SizedBox(
+                height: 30,
+              ),
               Center(
                 child: Text(
                   "Welcome,",
@@ -43,7 +50,9 @@ class _TestListState extends State<TestList> {
               ),
               Center(
                 child: Text(
-                  (email=="")?userName:email.substring(0,email.indexOf('@')),
+                  (email == "")
+                      ? userName
+                      : email.substring(0, email.indexOf('@')),
                   style: TextStyle(
                       fontSize: 26, color: Color.fromARGB(255, 98, 27, 131)),
                 ),
@@ -66,11 +75,11 @@ class _TestListState extends State<TestList> {
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => MyHomePage(),
-                            ),
-                          );
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MyHomePage(),
+                    ),
+                  );
                 },
                 child: Text(
                   "Test 1",
@@ -80,35 +89,36 @@ class _TestListState extends State<TestList> {
               ),
             ],
           ),
-          SizedBox(height: 80,),
-          
+          SizedBox(
+            height: 80,
+          ),
           Container(
-            child: RawMaterialButton(
-              onPressed: () async {
-                await FirebaseAuth.instance.signOut();
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Login(),
-                      ),
-                      (route) => false);
-                  await GoogleSignIn().signOut();
-                  userEmail="";
-                  userName="";
-                  email="";
-              },
-              elevation: 6.0,
-              fillColor: Colors.white,
-              child: FaIcon(
-                FontAwesomeIcons.arrowRightFromBracket,
-                size: 35.0,            
-              ),
-              padding: EdgeInsets.all(16.0),
-              shape: CircleBorder(),
-            )
-          ),
+              child: RawMaterialButton(
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Login(),
+                  ),
+                  (route) => false);
+              await GoogleSignIn().signOut();
+              userEmail = "";
+              userName = "";
+              email = "";
+              dp = "";
+            },
+            elevation: 6.0,
+            fillColor: Colors.white,
+            child: FaIcon(
+              FontAwesomeIcons.arrowRightFromBracket,
+              size: 35.0,
+            ),
+            padding: EdgeInsets.all(16.0),
+            shape: CircleBorder(),
+          )),
         ],
-          ),
-      ));
+      ),
+    ));
   }
 }
