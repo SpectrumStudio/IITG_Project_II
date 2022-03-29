@@ -104,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
       print("Intensity Value:" + RGBIlist[3]);
       I = RGBIlist[3];
       Fluttertoast.showToast(
-          msg: "R:$R G:$G B:$B I:$I",
+          msg: "R:$R, G:$G, B:$B, I:$I",
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
