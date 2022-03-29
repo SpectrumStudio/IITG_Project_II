@@ -25,25 +25,28 @@ class _MyHomePageState extends State<MyHomePage> {
   static const platform = const MethodChannel("com.flutter.epic/epic");
   String RGBI = "";
   var RGBIlist;
+  var forOpti;
+  var optiR, optiG, optiB;
   var R, G, B, I;
   var data;
+  String Temp = "";
 
   Future<File> cropImage(var image) async {
     File? croppedFile = await ImageCropper.cropImage(
         sourcePath: image.path,
         cropStyle: CropStyle.circle,
         aspectRatioPresets: [
-          CropAspectRatioPreset.square,
-          CropAspectRatioPreset.ratio3x2,
-          CropAspectRatioPreset.original,
-          CropAspectRatioPreset.ratio4x3,
-          CropAspectRatioPreset.ratio16x9
+          CropAspectRatioPreset.square
+          // CropAspectRatioPreset.ratio3x2,
+          // CropAspectRatioPreset.original,
+          // CropAspectRatioPreset.ratio4x3,
+          // CropAspectRatioPreset.ratio16x9
         ],
         androidUiSettings: AndroidUiSettings(
             toolbarTitle: 'Crop My Sample',
             toolbarColor: Colors.blue,
             toolbarWidgetColor: Colors.white,
-            initAspectRatio: CropAspectRatioPreset.original,
+            initAspectRatio: CropAspectRatioPreset.square,
             lockAspectRatio: false),
         iosUiSettings: IOSUiSettings(
           minimumAspectRatio: 1.0,
@@ -59,7 +62,16 @@ class _MyHomePageState extends State<MyHomePage> {
     prefs.setString('Path', croppedFile!.path.toString());
     //print("Path written!");
     //print(file);
-    Printy();
+    Temp = await Printy();
+    forOpti = Temp.split(" ");
+    optiR = double.parse(forOpti[0]);
+    optiR = optiR.toInt();
+    optiG = double.parse(forOpti[1]);
+    optiG = optiG.toInt();
+    optiB = double.parse(forOpti[2]);
+    optiB = optiB.toInt();
+    print(optiR.toString());
+    //print("Inside cropImage, Temp is =" + Temp);
     return croppedFile;
   }
 
@@ -69,13 +81,14 @@ class _MyHomePageState extends State<MyHomePage> {
     //  return null;
     if (toCrop) {
       var croppedImage = await cropImage(File(image!.path));
+      //Printy();
       return croppedImage;
     }
     final Directory directory = await getApplicationDocumentsDirectory();
     return File(image!.path);
   }
 
-  void Printy() async {
+  Future<String> Printy() async {
     String value;
     try {
       print("Java Function Printy called");
@@ -101,6 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
     } catch (e) {
       print(e);
     }
+    return RGBI;
   }
 
   @override
@@ -146,14 +160,26 @@ class _MyHomePageState extends State<MyHomePage> {
                     if (viewModel.image != null)
                       //Image.file(viewModel.image),
 
-                      Container(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20, right: 20),
-                          child: ClipOval(
-                            child: Image.file(
-                              viewModel.image,
-                            ),
-                          ),
+                      // Column(
+
+                      //   children[],: Padding(
+                      //     //padding: const EdgeInsets.only(left: 20, right: 20),
+                      //     padding: const EdgeInsets.all(16.0),
+                      //     child: ClipOval(
+                      //       child: Image.file(
+                      //         viewModel.image,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      Center(
+                        child: CircleAvatar(
+                          radius: 100,
+                          foregroundImage: Image.file(
+                            viewModel.image,
+                          ).image,
+                          //child: Image.file(viewModel.image),
+                          backgroundColor: Colors.transparent,
                         ),
                       ),
                     const SizedBox(
@@ -175,6 +201,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             ImageSource.gallery, viewModel.cropAfterPicked);
                         if (image == null) return;
                         viewModel.setImage(image);
+                        print(Temp);
                       },
                       style: ElevatedButton.styleFrom(
                           primary: Colors.yellowAccent,
@@ -220,6 +247,15 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                     const SizedBox(height: 20),
+                    if (viewModel.image != null)
+                      Container(
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color.fromARGB(255, optiR, optiG, optiB)),
+                        width: 100,
+                        height: 100,
+                      ),
+                    const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () async {
                         print("Debug:");
@@ -231,6 +267,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               builder: (context) => MlPage(
                                   red: R, green: G, blue: B, intensity: I)),
                         );
+
                         //print("RGBI:"+RGBISuccess.toString());
                         //SharedPreferences prefs = await SharedPreferences.getInstance();
                         //var RGBI = (prefs.getString('RGBI')??'');
