@@ -135,9 +135,16 @@ class _MyHomePageState extends State<MyHomePage> {
           content: Column(mainAxisSize: MainAxisSize.min, children: [
             buildColorPicker(),
             TextButton(
-              child: Text("Select"),
-              onPressed: () => Navigator.of(context).pop(),
-            )
+                child: Text("Select"),
+                onPressed: () {
+                  optiR = color.red;
+                  optiG = color.green;
+                  optiB = color.blue;
+                  R = color.red.toString();
+                  G = color.green.toString();
+                  B = color.blue.toString();
+                  Navigator.of(context).pop();
+                })
           ])));
 
   @override
