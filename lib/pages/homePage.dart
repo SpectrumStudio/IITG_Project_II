@@ -72,6 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
     optiG = optiG.toInt();
     optiB = double.parse(forOpti[2]);
     optiB = optiB.toInt();
+    color = Color.fromARGB(255, optiR, optiG, optiB);
     print(optiR.toString());
     //print("Inside cropImage, Temp is =" + Temp);
     return croppedFile;
@@ -122,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget buildColorPicker() => SlidePicker(
         pickerColor: color,
         enableAlpha: false,
-        showLabel: false,
+        showLabel: true,
         //palleteType:PaletteType.hsv,
         onColorChanged: (color) => setState(() => this.color = color),
       );
@@ -273,12 +274,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       FlatButton(
                         onPressed: () {
                           color = Color.fromARGB(255, optiR, optiG, optiB);
+                          print("color is:" + color.toString());
                           pickColor(context);
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Color.fromARGB(255, optiR, optiG, optiB)),
+                              shape: BoxShape.circle, color: color),
                           width: 100,
                           height: 100,
                         ),
