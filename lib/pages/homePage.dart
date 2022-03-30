@@ -12,6 +12,7 @@ import 'package:image_picker_demo/viewModel/homePageViewModel.dart';
 import 'package:provider/provider.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 import 'login.dart';
 import 'mlPage.dart';
@@ -29,6 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
   var optiR, optiG, optiB;
   var R, G, B, I;
   var data;
+  late Color color;
   String Temp = "";
 
   Future<File> cropImage(var image) async {
@@ -116,6 +118,26 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     return RGBI;
   }
+
+  Widget buildColorPicker() => SlidePicker(
+        pickerColor: color,
+        enableAlpha: false,
+        showLabel: false,
+        //palleteType:PaletteType.hsv,
+        onColorChanged: (color) => setState(() => this.color = color),
+      );
+
+  void pickColor(BuildContext buildContext) => showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+          title: Text("Color optimizer"),
+          content: Column(mainAxisSize: MainAxisSize.min, children: [
+            buildColorPicker(),
+            TextButton(
+              child: Text("Select"),
+              onPressed: () => Navigator.of(context).pop(),
+            )
+          ])));
 
   @override
   Widget build(BuildContext context) {
@@ -248,13 +270,22 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     const SizedBox(height: 20),
                     if (viewModel.image != null)
-                      Container(
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Color.fromARGB(255, optiR, optiG, optiB)),
-                        width: 100,
-                        height: 100,
+                      FlatButton(
+                        onPressed: () {
+                          color = Color.fromARGB(255, optiR, optiG, optiB);
+                          pickColor(context);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color.fromARGB(255, optiR, optiG, optiB)),
+                          width: 100,
+                          height: 100,
+                        ),
                       ),
+                    const SizedBox(height: 10),
+                    if (viewModel.image != null)
+                      new Text("Tap the circle to optimise the RGB values."),
                     const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () async {
