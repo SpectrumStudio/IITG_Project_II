@@ -278,9 +278,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     const SizedBox(height: 20),
                     if (viewModel.image != null)
-                      FlatButton(
+                        FlatButton (
                         onPressed: () {
-                          color = Color.fromARGB(255, optiR, optiG, optiB);
+                          color =  Color.fromARGB(255, optiR, optiG, optiB);
                           print("color is:" + color.toString());
                           pickColor(context);
                         },
@@ -299,14 +299,27 @@ class _MyHomePageState extends State<MyHomePage> {
                       onPressed: () async {
                         print("Debug:");
                         //Printy();
-
+                        if(R == null||G==null||B==null) 
+                         {
+                           ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  backgroundColor: Colors.orangeAccent,
+                                  duration: const Duration(seconds: 2),
+                                  content: Text(
+                                    "No Image selected",
+                                    style: TextStyle(fontSize: 18.0, color: Colors.black),
+                                  ),
+                                ),
+                              );
+                         }
+                        else{
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => MlPage(
                                   red: R, green: G, blue: B, intensity: I)),
                         );
-
+                        }
                         //print("RGBI:"+RGBISuccess.toString());
                         //SharedPreferences prefs = await SharedPreferences.getInstance();
                         //var RGBI = (prefs.getString('RGBI')??'');
