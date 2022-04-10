@@ -319,7 +319,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 builder: (context) => MlPage(
                                     red: R, green: G, blue: B, intensity: I)),
                           );
-                          userSetup();
+                          addData();
                         }
                         //print("RGBI:"+RGBISuccess.toString());
                         //SharedPreferences prefs = await SharedPreferences.getInstance();

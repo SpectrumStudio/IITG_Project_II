@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker_demo/pages/login.dart';
 import 'package:intl/intl.dart';
 
-Future<void> userSetup() async {
+Future<void> addData() async {
   FirebaseAuth auth=FirebaseAuth.instance;
   String uid=auth.currentUser!.uid.toString();
   DateFormat date= DateFormat("yyyyMMddHHmmss");
@@ -14,6 +14,7 @@ Future<void> userSetup() async {
     users.doc(uid+string).set({
       'Display Name': userName,
       'Time': DateTime.now(),
+      'uid': uid,
     });
     
     return;
@@ -22,6 +23,7 @@ Future<void> userSetup() async {
     users.doc(uid+string).set({
       'Display Name': email.substring(0, email.lastIndexOf("@")),
       'Time': DateTime.now(),
+      'uid': uid,
     });
   }
 }
