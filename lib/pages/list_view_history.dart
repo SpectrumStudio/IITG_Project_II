@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:image_picker_demo/pages/login.dart';
 
 class ListViewHistory extends StatefulWidget {
   @override
@@ -26,10 +27,29 @@ class _ListViewHistoryState extends State<ListViewHistory> {
             return ListView(
               children: snapshot.data!.docs.map((document) {
                 return Center(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width / 1.2,
-                    height: MediaQuery.of(context).size.height / 6,
-                    child: Text("Username: " + document['Display Name']),
+                  child: Card(
+                    child: (document['Display Name'] == userName)
+                        ? ListTile(
+                            title: Text(document['Display Name']),
+                            subtitle: Text(document['uid'] +
+                                "\n" +
+                                document['uid'] +
+                                "\n" +
+                                document['uid'] +
+                                "\n" +
+                                document['uid'] +
+                                "\n" +
+                                document['uid'] +
+                                "\n" +
+                                document['uid'] +
+                                "\n" +
+                                document['uid'] +
+                                "\n" +
+                                document['uid'] +
+                                "\n" +
+                                document['uid']),
+                          )
+                        : null,
                   ),
                 );
               }).toList(),
