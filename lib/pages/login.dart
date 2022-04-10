@@ -98,7 +98,6 @@ class _LoginState extends State<Login> {
     passwordController.dispose();
     super.dispose();
   }
-  
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +105,7 @@ class _LoginState extends State<Login> {
       // appBar: AppBar(
       //   title: Text("User Login"),
       // ),
-      
+
       body: Form(
         key: _formKey,
         child: Padding(
@@ -252,6 +251,8 @@ class _LoginState extends State<Login> {
                                 builder: (context) => TestList(),
                               ),
                               (route) => false);
+                          email = "";
+                          password = "";
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               backgroundColor:

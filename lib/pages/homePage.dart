@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:core';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker_demo/pages/firebase.dart';
 import 'package:image_picker_demo/pages/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -318,6 +319,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 builder: (context) => MlPage(
                                     red: R, green: G, blue: B, intensity: I)),
                           );
+                          userSetup();
                         }
                         //print("RGBI:"+RGBISuccess.toString());
                         //SharedPreferences prefs = await SharedPreferences.getInstance();
