@@ -337,6 +337,19 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                     const SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () async {},
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.yellowAccent,
+                          textStyle: TextStyle(
+                            fontSize: 18,
+                          )),
+                      child: Text(
+                        'History',
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ],
                 ),
               );

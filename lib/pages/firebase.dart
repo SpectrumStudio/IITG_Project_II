@@ -17,7 +17,7 @@ Future<void> addData() async {
       'uid': uid,
     });
     
-    return;
+    
   } else if (userName == "") {
     CollectionReference users = FirebaseFirestore.instance.collection('Malaria');
     users.doc(uid+string).set({
@@ -26,4 +26,12 @@ Future<void> addData() async {
       'uid': uid,
     });
   }
+  return;
+}
+
+Future<void> fetchData() async{
+
+  
+
+  return;
 }
