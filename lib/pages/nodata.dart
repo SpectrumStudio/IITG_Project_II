@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 class NoData extends StatefulWidget {
-  const NoData({ Key? key }) : super(key: key);
-
-  @override
+ @override
   State<NoData> createState() => _NoDataState();
 }
 

@@ -20,20 +20,17 @@ class _ListViewHistoryState extends State<ListViewHistory> {
             if (snapshot.hasError) {
               return Text('Something went wrong');
             }
-            if (!snapshot.hasData) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => NoData(),
-                ),
-              );
-            }
-            if (snapshot.connectionState == ConnectionState.waiting) {
+            
+            else if (!snapshot.hasData) {
+                return Text("Document does not exist");
+              }
+
+            else if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
                 child: CircularProgressIndicator(),
               );
             }
-            return ListView(
+            else return ListView(
               children: snapshot.data!.docs.map((document) {
                 return Center(
                   child: Card(
