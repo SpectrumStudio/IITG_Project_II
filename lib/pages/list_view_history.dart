@@ -21,8 +21,13 @@ class _ListViewHistoryState extends State<ListViewHistory> {
               return Text('Something went wrong');
             }
             if (!snapshot.hasData) {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> NoData()));
-              }
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => NoData(),
+                ),
+              );
+            }
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
                 child: CircularProgressIndicator(),
