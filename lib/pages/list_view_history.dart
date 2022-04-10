@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:image_picker_demo/pages/Nodata.dart';
 import 'package:image_picker_demo/pages/login.dart';
 
 class ListViewHistory extends StatefulWidget {
@@ -19,6 +20,9 @@ class _ListViewHistoryState extends State<ListViewHistory> {
             if (snapshot.hasError) {
               return Text('Something went wrong');
             }
+            if (!snapshot.hasData) {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> NoData()));
+              }
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
                 child: CircularProgressIndicator(),
