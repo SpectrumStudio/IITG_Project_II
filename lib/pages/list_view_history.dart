@@ -26,10 +26,31 @@ class _ListViewHistoryState extends State<ListViewHistory> {
             return ListView(
               children: snapshot.data!.docs.map((document) {
                 return Center(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width / 1.2,
-                    height: MediaQuery.of(context).size.height / 6,
-                    child: Text("Username: " + document['Display Name']),
+                  child: Card(
+                    child: ListTile(
+                      //width: MediaQuery.of(context).size.width / 1.2,
+                      //height: MediaQuery.of(context).size.height / 6,
+                      //child: Text("Username: " + document['Display Name']),
+                      title: Text(document['Display Name']),
+                      subtitle: Text(document['uid'] +
+                          "\n" +
+                          document['uid'] +
+                          "\n" +
+                          document['uid'] +
+                          "\n" +
+                          document['uid'] +
+                          "\n" +
+                          document['uid'] +
+                          "\n" +
+                          document['uid'] +
+                          "\n" +
+                          document['uid'] +
+                          "\n" +
+                          document['uid'] +
+                          "\n" +
+                          document['uid']),
+                      //isThreeLine: true,
+                    ),
                   ),
                 );
               }).toList(),
