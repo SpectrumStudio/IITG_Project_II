@@ -3,6 +3,7 @@ import 'dart:core';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker_demo/pages/firebase.dart';
+import 'package:image_picker_demo/pages/list_view_history.dart';
 import 'package:image_picker_demo/pages/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -338,7 +339,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton(
-                      onPressed: () async {},
+                      onPressed: () async {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ListViewHistory(),
+                          ),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                           primary: Colors.yellowAccent,
                           textStyle: TextStyle(
