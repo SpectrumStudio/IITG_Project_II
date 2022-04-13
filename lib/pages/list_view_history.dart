@@ -11,56 +11,53 @@ class ListViewHistory extends StatefulWidget {
 class _ListViewHistoryState extends State<ListViewHistory> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: null,
-      body: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection("Malaria").snapshots(),
-          builder:
-              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.hasError) {
-              return Text('Something went wrong');
-            }
-            
-            else if (!snapshot.hasData) {
-                return Text("Document does not exist");
-              }
-
-            else if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            else return ListView(
-              children: snapshot.data!.docs.map((document) {
-                return Center(
-                  child: Card(
-                    child: (document['Display Name'] == userName)
-                        ? ListTile(
-                            title: Text(document['Display Name']),
-                            subtitle: Text(document['uid'] +
-                                "\n" +
-                                document['uid'] +
-                                "\n" +
-                                document['uid'] +
-                                "\n" +
-                                document['uid'] +
-                                "\n" +
-                                document['uid'] +
-                                "\n" +
-                                document['uid'] +
-                                "\n" +
-                                document['uid'] +
-                                "\n" +
-                                document['uid'] +
-                                "\n" +
-                                document['uid']),
-                          )
-                        : null,
-                  ),
-                );
-              }).toList(),
+    return StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance.collection("Malaria").snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return Text('Something went wrong');
+          } else if (!snapshot.hasData) {
+            return Container(
+              child: Center(child: Text("Document does not exist")),
             );
-          }),
-    );
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else
+            return SingleChildScrollView(
+              child: ListView(
+                children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                  Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+                  return Center(
+                    child: Card(
+                      child: (document['Display Name'] == userName)
+                          ? ListTile(
+                              title: Text(document['Display Name']),
+                              subtitle: Text(document['uid'] +
+                                  "\n" +
+                                  document['uid'] +
+                                  "\n" +
+                                  document['uid'] +
+                                  "\n" +
+                                  document['uid'] +
+                                  "\n" +
+                                  document['uid'] +
+                                  "\n" +
+                                  document['uid'] +
+                                  "\n" +
+                                  document['uid'] +
+                                  "\n" +
+                                  document['uid'] +
+                                  "\n" +
+                                  document['uid']),
+                            )
+                          : null,
+                    ),
+                  );
+                }).toList(),
+              ),
+            );
+        });
   }
 }
