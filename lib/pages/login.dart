@@ -18,6 +18,7 @@ var userEmail = "";
 var email = "";
 var password = "";
 var dp = "";
+var uid="";
 
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
@@ -41,6 +42,8 @@ class _LoginState extends State<Login> {
       password = password.trim();
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
+      FirebaseAuth auth=FirebaseAuth.instance;
+      uid=auth.currentUser!.uid.toString();    
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -324,6 +327,8 @@ class _LoginState extends State<Login> {
       userName = googleUser.displayName!;
       dp = googleUser.photoUrl!.replaceAll("s96-c", "s400-c");
     }
+    FirebaseAuth auth=FirebaseAuth.instance;
+    uid=auth.currentUser!.uid.toString();
 
     return true;
   }

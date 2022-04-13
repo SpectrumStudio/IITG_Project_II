@@ -146,6 +146,7 @@ class _TestListState extends State<TestList> {
     email = "";
     password = "";
     dp = "";
+    uid="";
   }
 
   Future<bool> onWillPop() {
