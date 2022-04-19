@@ -15,49 +15,51 @@ class _ListViewHistoryState extends State<ListViewHistory> {
     return Scaffold(
       floatingActionButton: null,
       body: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection("Malaria").snapshots(),
+          stream: FirebaseFirestore.instance.collection('Malaria').snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.hasError) {
-              return Text('Something went wrong');
-            } else if (!snapshot.hasData) {
-              return Container(
-                  child: Center(child: Text("Document does not exist")),
-                  
-                  );
-            } else if (snapshot.connectionState == ConnectionState.waiting) {
+            // if (snapshot.hasError) {
+            //   return Text('Something went wrong');
+            // } if (snapshot.connectionState == ConnectionState.waiting) {
+            //   return Center(
+            //     child: CircularProgressIndicator(),
+            //   );
+            // } else
+            if(!snapshot.hasData){
               return Center(
                 child: CircularProgressIndicator(),
               );
-            } else
+            }
               return ListView(
-                children: snapshot.data!.docs.map((document) {
+                children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                  Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
                   return Center(
                     child: Card(
-                      child: (document['uid'] == uid)
+                      child: (data["uid"] == uid)
                           ? ListTile(
-                              title: Text(document['Display Name']),
-                              subtitle: Text(document['uid'] +
+                              title: Text('Name: '+data['Display Name']),
+                              subtitle: Text('Id: '+data['uid'] +
                                   "\n" +
-                                  document['uid'] +
+                                  data['uid'] +
                                   "\n" +
-                                  document['uid'] +
+                                  data['uid'] +
                                   "\n" +
-                                  document['uid'] +
+                                  data['uid'] +
                                   "\n" +
-                                  document['uid'] +
+                                  data['uid'] +
                                   "\n" +
-                                  document['uid'] +
+                                  data['uid'] +
                                   "\n" +
-                                  document['uid'] +
+                                  data['uid'] +
                                   "\n" +
-                                  document['uid'] +
+                                  data['uid'] +
                                   "\n" +
-                                  document['uid']),
+                                  data['uid']),
                             )
                           : null,
                     ),
                   );
+
                 }).toList(),
               );
           }),

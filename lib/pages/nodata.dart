@@ -11,8 +11,7 @@ class _NoDataState extends State<NoData> {
     return Scaffold(
        body: Container(
          child: Center(
-           child: Text('No Data available'),
-           
+           child: Text('No Data available'),   
          ),
        ),
     );
