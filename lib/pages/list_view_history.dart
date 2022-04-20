@@ -15,54 +15,64 @@ class _ListViewHistoryState extends State<ListViewHistory> {
     return Scaffold(
       floatingActionButton: null,
       body: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection('Malaria').snapshots(),
-          builder:
-              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            // if (snapshot.hasError) {
-            //   return Text('Something went wrong');
-            // } if (snapshot.connectionState == ConnectionState.waiting) {
-            //   return Center(
-            //     child: CircularProgressIndicator(),
-            //   );
-            // } else
-            if(!snapshot.hasData){
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-              return ListView(
-                children: snapshot.data!.docs.map((DocumentSnapshot document) {
-                  Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-                  return Center(
-                    child: Card(
-                      child: (data["uid"] == uid)
-                          ? ListTile(
-                              title: Text('Name: '+data['Display Name']),
-                              subtitle: Text('Id: '+data['uid'] +
-                                  "\n" +
-                                  data['uid'] +
-                                  "\n" +
-                                  data['uid'] +
-                                  "\n" +
-                                  data['uid'] +
-                                  "\n" +
-                                  data['uid'] +
-                                  "\n" +
-                                  data['uid'] +
-                                  "\n" +
-                                  data['uid'] +
-                                  "\n" +
-                                  data['uid'] +
-                                  "\n" +
-                                  data['uid']),
-                            )
-                          : null,
-                    ),
-                  );
+        stream: FirebaseFirestore.instance
+            .collection('Users')
+            .doc(uid)
+            .collection('Malaria')
+            .snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          // if (snapshot.hasError) {
+          //   return Text('Something went wrong');
+          // } if (snapshot.connectionState == ConnectionState.waiting) {
+          //   return Center(
+          //     child: CircularProgressIndicator(),
+          //   );
+          // } else
+          if (!snapshot.hasData) {
+            return Center(child: CircularProgressIndicator());
+          }
 
-                }).toList(),
-              );
-          }),
+          if (snapshot.data!.docs.isNotEmpty) {
+            return ListView(
+              children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                Map<String, dynamic> data =
+                    document.data()! as Map<String, dynamic>;
+                return Center(
+                  child: Card(
+                    child: ListTile(
+                      title: Text('Name: ' + data['Display Name']),
+                      subtitle: Text('Id: ' +
+                          data['uid'] +
+                          "\n" +
+                          data['uid'] +
+                          "\n" +
+                          data['uid'] +
+                          "\n" +
+                          data['uid'] +
+                          "\n" +
+                          data['uid'] +
+                          "\n" +
+                          data['uid'] +
+                          "\n" +
+                          data['uid'] +
+                          "\n" +
+                          data['uid'] +
+                          "\n" +
+                          data['uid']),
+                    ),
+                  ),
+                );
+              }).toList(),
+            );
+          }
+
+          return Container(
+            child: Center(
+              child: Text('No Details available',style: TextStyle(fontSize: 20),),
+            ),
+          );
+        },
+      ),
     );
   }
 }

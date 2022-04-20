@@ -4,10 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker_demo/pages/firebase.dart';
 import 'package:image_picker_demo/pages/list_view_history.dart';
-import 'package:image_picker_demo/pages/login.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_picker_demo/viewModel/homePageViewModel.dart';

@@ -10,7 +10,7 @@ Future<void> addData() async {
   String string=date.format(DateTime.now());
 
   if (email == "") {
-    CollectionReference users = FirebaseFirestore.instance.collection('Malaria');
+    CollectionReference users = FirebaseFirestore.instance.collection('Users').doc(uid).collection('Malaria');
     users.doc(uid+string).set({
       'Display Name': userName,
       'Time': DateTime.now(),
@@ -19,7 +19,7 @@ Future<void> addData() async {
     
     
   } else if (userName == "") {
-    CollectionReference users = FirebaseFirestore.instance.collection('Malaria');
+    CollectionReference users = FirebaseFirestore.instance.collection('Users').doc(uid).collection('Malaria');
     users.doc(uid+string).set({
       'Display Name': email.substring(0, email.lastIndexOf("@")),
       'Time': DateTime.now(),
