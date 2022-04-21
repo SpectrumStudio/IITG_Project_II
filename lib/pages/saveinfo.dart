@@ -3,7 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker_demo/pages/homePage.dart';
 import 'package:image_picker_demo/pages/login.dart';
+import 'package:image_picker_demo/pages/testList.dart';
 import 'package:intl/intl.dart';
 
 var name = "";
@@ -167,7 +169,8 @@ class _SaveInfoState extends State<SaveInfo> {
                            sex=sexController.text;
                            location=locationController.text;
                         });
-                        addData();
+                        addData(context);
+                        
                         
                         }  
                       },
@@ -188,7 +191,7 @@ class _SaveInfoState extends State<SaveInfo> {
   }
 }
 
-Future<void> addData() async {
+Future<void> addData(BuildContext context) async {
   FirebaseAuth auth=FirebaseAuth.instance;
   String uid=auth.currentUser!.uid.toString();
   DateFormat date= DateFormat("yyyyMMddHHmmss");
@@ -205,7 +208,38 @@ Future<void> addData() async {
       'sex': sex,
       'location': location,
       
-    });
+    })
+    .then((value) => showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+            title: const Text('Details saved successfully'),
+            actions: <Widget>[           
+              TextButton(
+                onPressed: () => Navigator.pushAndRemoveUntil(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (context, a, b) => TestList(),
+                                transitionDuration: Duration(seconds: 0),
+                              ),
+                              (route) => false),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+    ),)
+    .catchError((error) => showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+            title: const Text('Details not saved! Retry'),
+            actions: <Widget>[           
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+    ),);
+    ;
     
     
   } else if (userName == "") {
@@ -218,7 +252,10 @@ Future<void> addData() async {
       'age': age,
       'sex': sex,
       'location': location,
-    });
+    })
+    .then((value) => print("Details added successfully"))
+    .catchError((error) => print("Failed to add details: $error"));
+    ;
   }
   return;
 }
