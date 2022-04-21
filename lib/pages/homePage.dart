@@ -108,14 +108,14 @@ class _MyHomePageState extends State<MyHomePage> {
       B = RGBIlist[2];
       print("Intensity Value:" + RGBIlist[3]);
       I = RGBIlist[3];
-      Fluttertoast.showToast(
-          msg: "R:$R, G:$G, B:$B, I:$I",
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
+      // Fluttertoast.showToast(
+      //     msg: "R:$R, G:$G, B:$B, I:$I",
+      //     toastLength: Toast.LENGTH_LONG,
+      //     gravity: ToastGravity.CENTER,
+      //     timeInSecForIosWeb: 1,
+      //     backgroundColor: Colors.red,
+      //     textColor: Colors.white,
+      //     fontSize: 16.0);
     } catch (e) {
       print(e);
     }

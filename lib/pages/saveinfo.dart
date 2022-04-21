@@ -141,6 +141,29 @@ class _SaveInfoState extends State<SaveInfo> {
                 //   ),
                 // ),
                 Container(
+                  margin: EdgeInsets.symmetric(vertical: 10.0),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 12, right: 12),
+                    child: TextFormField(
+                      autofocus: false,
+                      decoration: InputDecoration(
+                        labelText: 'Location',
+                        labelStyle: TextStyle(fontSize: 20.0),
+                        border: OutlineInputBorder(),
+                        errorStyle:
+                            TextStyle(color: Colors.redAccent, fontSize: 15),
+                      ),
+                      controller: locationController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your location';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                ),
+                Container(
                   child: Column(
                     children: [
                       Text("Gender"),
@@ -184,29 +207,6 @@ class _SaveInfoState extends State<SaveInfo> {
                         ),
                       )
                     ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 10.0),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 12, right: 12),
-                    child: TextFormField(
-                      autofocus: false,
-                      decoration: InputDecoration(
-                        labelText: 'Location',
-                        labelStyle: TextStyle(fontSize: 20.0),
-                        border: OutlineInputBorder(),
-                        errorStyle:
-                            TextStyle(color: Colors.redAccent, fontSize: 15),
-                      ),
-                      controller: locationController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your location';
-                        }
-                        return null;
-                      },
-                    ),
                   ),
                 ),
                 Container(
