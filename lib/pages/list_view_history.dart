@@ -41,24 +41,47 @@ class _ListViewHistoryState extends State<ListViewHistory> {
                 return Center(
                   child: Card(
                     child: ListTile(
-                      title: Text('Username: ' + data['username'],style: TextStyle(fontSize: 20),),
-                      subtitle: Text('Id: ' + data['uid'] +
-                          "\n" +
-                          'Full Name: '+data['fullname'] +
-                          "\n" +
-                          'Age: '+data['age'] +
-                          "\n" +
-                          'Sex: '+data['sex'] +
-                          "\n" +
-                          'Location: '+data['location'] +
-                          "\n" +
-                          'Created on: '+data['created'] +
-                          "\n" +
-                          data['uid'] +
-                          "\n" +
-                          data['uid'] +
-                          "\n" +
-                          data['uid'],style: TextStyle(fontSize: 18,),),
+                      title: Text(
+                        'Username: ' + data['username'],
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      subtitle: Text(
+                        'Id: ' +
+                            data['uid'] +
+                            "\n" +
+                            'Full Name: ' +
+                            data['fullname'] +
+                            "\n" +
+                            'Age: ' +
+                            data['age'] +
+                            "\n" +
+                            'Sex: ' +
+                            data['sex'] +
+                            "\n" +
+                            'Location: ' +
+                            data['location'] +
+                            "\n" +
+                            'Created on: ' +
+                            data['created'] +
+                            "\n" +
+                            'Red Value: ' +
+                            data['r_value'] +
+                            "\n" +
+                            'Green Value: ' +
+                            data['g_value'] +
+                            "\n" +
+                            'Blue Value: ' +
+                            data['b_value'] +
+                            "\n" +
+                            'Intensity Value: ' +
+                            data['i_value'] +
+                            "\n" +
+                            'Predicted Result: ' +
+                            data['pred_value'],
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
                     ),
                   ),
                 );
@@ -68,7 +91,10 @@ class _ListViewHistoryState extends State<ListViewHistory> {
 
           return Container(
             child: Center(
-              child: Text('No Details available',style: TextStyle(fontSize: 20),),
+              child: Text(
+                'No Details available',
+                style: TextStyle(fontSize: 20),
+              ),
             ),
           );
         },

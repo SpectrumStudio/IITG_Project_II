@@ -5,13 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker_demo/pages/homePage.dart';
 import 'package:image_picker_demo/pages/login.dart';
+import 'package:image_picker_demo/pages/mlPage.dart';
 import 'package:image_picker_demo/pages/testList.dart';
 import 'package:intl/intl.dart';
 
 var name = "";
 var age = "";
-var sex = "";
+var sex = "Male";
 var location = "";
+enum SingingCharacter { Male, Female, Others }
 
 class SaveInfo extends StatefulWidget {
   const SaveInfo({Key? key}) : super(key: key);
@@ -21,19 +23,20 @@ class SaveInfo extends StatefulWidget {
 }
 
 class _SaveInfoState extends State<SaveInfo> {
-
   final _formValidKey = GlobalKey<FormState>();
 
   final nameController = TextEditingController();
   final ageController = TextEditingController();
-  final sexController = TextEditingController();
+  //final sexController = TextEditingController();
   final locationController = TextEditingController();
+
+  SingingCharacter? gender = SingingCharacter.Male;
 
   @override
   void dispose() {
     nameController.dispose();
     ageController.dispose();
-    sexController.dispose();
+    //sexController.dispose();
     locationController.dispose();
     super.dispose();
   }
@@ -44,8 +47,8 @@ class _SaveInfoState extends State<SaveInfo> {
       body: Form(
         key: _formValidKey,
         child: ListView(
-          children: 
-            [Column(
+          children: [
+            Column(
               children: [
                 SizedBox(
                   height: 30,
@@ -53,7 +56,9 @@ class _SaveInfoState extends State<SaveInfo> {
                 Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 16.0, ),
+                      padding: const EdgeInsets.only(
+                        left: 16.0,
+                      ),
                       child: Text(
                         'Enter the details below',
                         style: TextStyle(fontSize: 22),
@@ -112,27 +117,73 @@ class _SaveInfoState extends State<SaveInfo> {
                     ),
                   ),
                 ),
+                // Container(
+                //   margin: EdgeInsets.symmetric(vertical: 10.0),
+                //   child: Padding(
+                //     padding: const EdgeInsets.only(left: 12, right: 12),
+                //     child: TextFormField(
+                //       autofocus: false,
+                //       decoration: InputDecoration(
+                //         labelText: 'Sex',
+                //         labelStyle: TextStyle(fontSize: 20.0),
+                //         border: OutlineInputBorder(),
+                //         errorStyle:
+                //             TextStyle(color: Colors.redAccent, fontSize: 15),
+                //       ),
+                //       controller: sexController,
+                //       validator: (value) {
+                //         if (value == null || value.isEmpty) {
+                //           return 'Please enter sex';
+                //         }
+                //         return null;
+                //       },
+                //     ),
+                //   ),
+                // ),
                 Container(
-                  margin: EdgeInsets.symmetric(vertical: 10.0),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 12, right: 12),
-                    child: TextFormField(
-                      autofocus: false,
-                      decoration: InputDecoration(
-                        labelText: 'Sex',
-                        labelStyle: TextStyle(fontSize: 20.0),
-                        border: OutlineInputBorder(),
-                        errorStyle:
-                            TextStyle(color: Colors.redAccent, fontSize: 15),
+                  child: Column(
+                    children: [
+                      Text("Gender"),
+                      ListTile(
+                        title: const Text('Male'),
+                        leading: Radio<SingingCharacter>(
+                          value: SingingCharacter.Male,
+                          groupValue: gender,
+                          onChanged: (SingingCharacter? value) {
+                            setState(() {
+                              gender = value;
+                              sex = "Male";
+                            });
+                          },
+                        ),
                       ),
-                      controller: sexController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter sex';
-                        }
-                        return null;
-                      },
-                    ),
+                      ListTile(
+                        title: const Text('Female'),
+                        leading: Radio<SingingCharacter>(
+                          value: SingingCharacter.Female,
+                          groupValue: gender,
+                          onChanged: (SingingCharacter? value) {
+                            setState(() {
+                              gender = value;
+                              sex = "Female";
+                            });
+                          },
+                        ),
+                      ),
+                      ListTile(
+                        title: const Text('Others'),
+                        leading: Radio<SingingCharacter>(
+                          value: SingingCharacter.Others,
+                          groupValue: gender,
+                          onChanged: (SingingCharacter? value) {
+                            setState(() {
+                              gender = value;
+                              sex = "Others";
+                            });
+                          },
+                        ),
+                      )
+                    ],
                   ),
                 ),
                 Container(
@@ -159,20 +210,37 @@ class _SaveInfoState extends State<SaveInfo> {
                   ),
                 ),
                 Container(
+                  margin: EdgeInsets.symmetric(vertical: 10.0),
+                  child: Column(
+                    children: [
+                      Text("R: " +
+                          redPar +
+                          " G: " +
+                          greenPar +
+                          " B: " +
+                          bluePar +
+                          " I: " +
+                          intensityPar),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text("Pred Value: " + predValue)
+                    ],
+                  ),
+                ),
+                Container(
                   margin: EdgeInsets.symmetric(vertical: 20),
                   child: ElevatedButton(
                       onPressed: () {
-                        if(_formValidKey.currentState!.validate()){
+                        if (_formValidKey.currentState!.validate()) {
                           setState(() {
-                           name=nameController.text;
-                           age=ageController.text;
-                           sex=sexController.text;
-                           location=locationController.text;
-                        });
-                        addData(context);
-                        
-                        
-                        }  
+                            name = nameController.text;
+                            age = ageController.text;
+                            //sex = sexController.text;
+                            location = locationController.text;
+                          });
+                          addData(context);
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         primary: Color.fromARGB(255, 250, 226, 7),
@@ -192,69 +260,85 @@ class _SaveInfoState extends State<SaveInfo> {
 }
 
 Future<void> addData(BuildContext context) async {
-  FirebaseAuth auth=FirebaseAuth.instance;
-  String uid=auth.currentUser!.uid.toString();
-  DateFormat date= DateFormat("yyyyMMddHHmmss");
-  String string=date.format(DateTime.now());
+  FirebaseAuth auth = FirebaseAuth.instance;
+  String uid = auth.currentUser!.uid.toString();
+  DateFormat date = DateFormat("yyyyMMddHHmmss");
+  String string = date.format(DateTime.now());
 
   if (email == "") {
-    CollectionReference users = FirebaseFirestore.instance.collection('Users').doc(uid).collection('Malaria');
-    users.doc(uid+string).set({
-      'username': userName,
-      'created': DateTime.now().toString(),
-      'uid': uid,
-      'fullname': name,
-      'age': age,
-      'sex': sex,
-      'location': location,
-      
-    })
-    .then((value) => showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-            title: const Text('Details saved successfully'),
-            actions: <Widget>[           
-              TextButton(
-                onPressed: () => Navigator.pushAndRemoveUntil(
-                              context,
-                              PageRouteBuilder(
-                                pageBuilder: (context, a, b) => TestList(),
-                                transitionDuration: Duration(seconds: 0),
-                              ),
-                              (route) => false),
-                child: const Text('OK'),
-              ),
-            ],
+    CollectionReference users = FirebaseFirestore.instance
+        .collection('Users')
+        .doc(uid)
+        .collection('Malaria');
+    users
+        .doc(uid + string)
+        .set({
+          'username': userName,
+          'created': DateTime.now().toString(),
+          'uid': uid,
+          'fullname': name,
+          'age': age,
+          'sex': sex,
+          'location': location,
+          'r_value': redPar,
+          'g_value': greenPar,
+          'b_value': bluePar,
+          'i_value': intensityPar,
+          'pred_value': predValue,
+        })
+        .then(
+          (value) => showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Details saved successfully'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pushAndRemoveUntil(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, a, b) => TestList(),
+                        transitionDuration: Duration(seconds: 0),
+                      ),
+                      (route) => false),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
           ),
-    ),)
-    .catchError((error) => showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-            title: const Text('Details not saved! Retry'),
-            actions: <Widget>[           
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('OK'),
-              ),
-            ],
+        )
+        .catchError(
+          (error) => showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Details not saved! Retry'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
           ),
-    ),);
+        );
     ;
-    
-    
   } else if (userName == "") {
-    CollectionReference users = FirebaseFirestore.instance.collection('Users').doc(uid).collection('Malaria');
-    users.doc(uid+string).set({
-      'username': email.substring(0, email.lastIndexOf("@")),
-      'created': DateTime.now().toString(),
-      'uid': uid,
-      'fullname': name,
-      'age': age,
-      'sex': sex,
-      'location': location,
-    })
-    .then((value) => print("Details added successfully"))
-    .catchError((error) => print("Failed to add details: $error"));
+    CollectionReference users = FirebaseFirestore.instance
+        .collection('Users')
+        .doc(uid)
+        .collection('Malaria');
+    users
+        .doc(uid + string)
+        .set({
+          'username': email.substring(0, email.lastIndexOf("@")),
+          'created': DateTime.now().toString(),
+          'uid': uid,
+          'fullname': name,
+          'age': age,
+          'sex': sex,
+          'location': location,
+        })
+        .then((value) => print("Details added successfully"))
+        .catchError((error) => print("Failed to add details: $error"));
     ;
   }
   return;

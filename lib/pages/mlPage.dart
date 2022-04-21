@@ -6,7 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 
-var redPar="",greenPar="",bluePar="",intensityPar="";
+var redPar = "", greenPar = "", bluePar = "", intensityPar = "";
+var predValue = "";
 
 class MlPage extends StatefulWidget {
   final String red, green, blue, intensity;
@@ -23,7 +24,6 @@ class MlPage extends StatefulWidget {
 }
 
 class _MlPageState extends State<MlPage> {
-  var predValue = "";
   @override
   void initState() {
     super.initState();
@@ -64,10 +64,10 @@ class _MlPageState extends State<MlPage> {
 
   @override
   Widget build(BuildContext context) {
-    String redPar = widget.red;
-    String greenPar = widget.green;
-    String bluePar = widget.blue;
-    String intensityPar = widget.intensity;
+    redPar = widget.red;
+    greenPar = widget.green;
+    bluePar = widget.blue;
+    intensityPar = widget.intensity;
 
     return Scaffold(
       // appBar: AppBar(
@@ -136,11 +136,11 @@ class _MlPageState extends State<MlPage> {
                   ElevatedButton(
                       onPressed: () {
                         Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SaveInfo(),
-                        ),
-                      );
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SaveInfo(),
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.yellow,
@@ -149,13 +149,12 @@ class _MlPageState extends State<MlPage> {
                         'SAVE',
                         style: TextStyle(fontSize: 18),
                       )),
-
                   ElevatedButton(
                       onPressed: () {
-                        redPar="";
-                        greenPar="";
-                        bluePar="";
-                        intensityPar="";
+                        redPar = "";
+                        greenPar = "";
+                        bluePar = "";
+                        intensityPar = "";
                         Navigator.pushAndRemoveUntil(
                             context,
                             PageRouteBuilder(
