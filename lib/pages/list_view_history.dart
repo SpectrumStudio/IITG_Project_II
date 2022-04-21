@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker_demo/pages/Nodata.dart';
-import 'package:image_picker_demo/pages/firebase.dart';
 import 'package:image_picker_demo/pages/login.dart';
+import 'package:image_picker_demo/pages/saveinfo.dart';
 
 class ListViewHistory extends StatefulWidget {
   @override
@@ -19,6 +19,7 @@ class _ListViewHistoryState extends State<ListViewHistory> {
             .collection('Users')
             .doc(uid)
             .collection('Malaria')
+            .orderBy('created', descending: true)
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           // if (snapshot.hasError) {
@@ -40,25 +41,24 @@ class _ListViewHistoryState extends State<ListViewHistory> {
                 return Center(
                   child: Card(
                     child: ListTile(
-                      title: Text('Name: ' + data['Display Name']),
-                      subtitle: Text('Id: ' +
-                          data['uid'] +
+                      title: Text('Username: ' + data['username'],style: TextStyle(fontSize: 20),),
+                      subtitle: Text('Id: ' + data['uid'] +
+                          "\n" +
+                          'Full Name: '+data['fullname'] +
+                          "\n" +
+                          'Age: '+data['age'] +
+                          "\n" +
+                          'Sex: '+data['sex'] +
+                          "\n" +
+                          'Location: '+data['location'] +
+                          "\n" +
+                          'Created on: '+data['created'] +
                           "\n" +
                           data['uid'] +
                           "\n" +
                           data['uid'] +
                           "\n" +
-                          data['uid'] +
-                          "\n" +
-                          data['uid'] +
-                          "\n" +
-                          data['uid'] +
-                          "\n" +
-                          data['uid'] +
-                          "\n" +
-                          data['uid'] +
-                          "\n" +
-                          data['uid']),
+                          data['uid'],style: TextStyle(fontSize: 18,),),
                     ),
                   ),
                 );
