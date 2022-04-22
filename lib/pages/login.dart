@@ -106,10 +106,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text("User Login"),
-      // ),
-
+      resizeToAvoidBottomInset: false,
       body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -132,7 +129,7 @@ class _LoginState extends State<Login> {
                   sigmaY: 16.0,
                 ),
                 child: Container(
-                  height: MediaQuery.of(context).size.height - 300,
+                  height: MediaQuery.of(context).size.height - 250,
                   width: MediaQuery.of(context).size.width - 20,
                   decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.2),
@@ -155,7 +152,9 @@ class _LoginState extends State<Login> {
                               decoration: InputDecoration(
                                 labelText: 'Email: ',
                                 labelStyle: TextStyle(fontSize: 20.0),
-                                border: OutlineInputBorder(),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                ),
                                 errorStyle: TextStyle(
                                     color: Colors.redAccent, fontSize: 15),
                               ),
@@ -178,7 +177,9 @@ class _LoginState extends State<Login> {
                               decoration: InputDecoration(
                                 labelText: 'Password: ',
                                 labelStyle: TextStyle(fontSize: 20.0),
-                                border: OutlineInputBorder(),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                ),
                                 errorStyle: TextStyle(
                                     color: Colors.redAccent, fontSize: 15),
                               ),
@@ -192,55 +193,62 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                           Container(
-                            margin: EdgeInsets.only(left: 60.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                isLoading
-                                    ? CircularProgressIndicator(
-                                        color: Colors.orange,
-                                      )
-                                    : ElevatedButton(
-                                        onPressed: () async {
-                                          // Validate returns true if the form is valid, otherwise false.
-                                          if (_formKey.currentState!
-                                              .validate()) {
-                                            setState(() {
-                                              //print("Hello");
-                                              email = emailController.text;
-                                              //print(email);
-                                              password =
-                                                  passwordController.text;
-                                            });
-                                            userLogin();
-                                            if (isLoading) return;
-                                            setState(() => isLoading = true);
-                                            await Future.delayed(
-                                                Duration(seconds: 1));
-                                            setState(() => isLoading = false);
-                                          }
-                                        },
-                                        child: Text(
-                                          'Login',
-                                          style: TextStyle(fontSize: 18.0),
+                            child: TextButton(
+                              onPressed: () => {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ForgotPassword(),
+                                  ),
+                                )
+                              },
+                              child: Text(
+                                'Forgot Password ?',
+                                style: TextStyle(fontSize: 14.0),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            //margin: EdgeInsets.only(left: 60.0),
+                            child: Center(
+                              //mainAxisAlignment: MainAxisAlignment.center,
+                              child: isLoading
+                                  ? CircularProgressIndicator(
+                                      color: Colors.orange,
+                                    )
+                                  : ElevatedButton(
+                                      style: ButtonStyle(
+                                        shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30.0),
+                                          ),
                                         ),
                                       ),
-                                SizedBox(width: 12),
-                                TextButton(
-                                  onPressed: () => {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => ForgotPassword(),
+                                      onPressed: () async {
+                                        // Validate returns true if the form is valid, otherwise false.
+                                        if (_formKey.currentState!.validate()) {
+                                          setState(() {
+                                            //print("Hello");
+                                            email = emailController.text;
+                                            //print(email);
+                                            password = passwordController.text;
+                                          });
+                                          userLogin();
+                                          if (isLoading) return;
+                                          setState(() => isLoading = true);
+                                          await Future.delayed(
+                                              Duration(seconds: 1));
+                                          setState(() => isLoading = false);
+                                        }
+                                      },
+                                      child: Text(
+                                        'Login',
+                                        style: TextStyle(fontSize: 18.0),
                                       ),
-                                    )
-                                  },
-                                  child: Text(
-                                    'Forgot Password ?',
-                                    style: TextStyle(fontSize: 14.0),
-                                  ),
-                                ),
-                              ],
+                                    ),
+                              //SizedBox(width: 12),
                             ),
                           ),
                           Container(
