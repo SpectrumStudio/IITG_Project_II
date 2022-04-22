@@ -37,7 +37,11 @@ class MyApp extends StatelessWidget {
             textTheme: GoogleFonts.latoTextTheme(
               Theme.of(context).textTheme,
             ),
-            primarySwatch: Colors.orange,
+            colorScheme: ColorScheme.fromSwatch().copyWith(
+              primary: Color.fromARGB(200, 0, 32, 63),
+              secondary: Color.fromARGB(200, 3, 0, 158),
+            ),
+            //primaryColor: Color.fromARGB(255, 0, 0, 0),
             //visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
           home: Login(),

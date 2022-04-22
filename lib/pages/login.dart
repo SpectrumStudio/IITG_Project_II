@@ -110,8 +110,8 @@ class _LoginState extends State<Login> {
       body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(colors: [
-          Color.fromARGB(150, 0, 242, 236),
-          Color.fromARGB(150, 0, 150, 242)
+          Color.fromARGB(150, 0, 150, 242),
+          Color.fromARGB(150, 0, 242, 236)
         ], begin: Alignment.topLeft, end: Alignment.bottomRight)),
         child: Center(
           child: Container(
@@ -129,7 +129,7 @@ class _LoginState extends State<Login> {
                   sigmaY: 16.0,
                 ),
                 child: Container(
-                  height: MediaQuery.of(context).size.height - 250,
+                  height: MediaQuery.of(context).size.height - 200,
                   width: MediaQuery.of(context).size.width - 20,
                   decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.2),
@@ -155,13 +155,14 @@ class _LoginState extends State<Login> {
                                       const EdgeInsets.only(top: 12, left: 10),
                                   child: FaIcon(FontAwesomeIcons.envelope),
                                 ),
-                                labelText: 'Email: ',
+                                labelText: 'Email',
                                 labelStyle: TextStyle(fontSize: 20.0),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
                                 errorStyle: TextStyle(
-                                    color: Colors.redAccent, fontSize: 15),
+                                    color: Color.fromARGB(200, 0, 32, 63),
+                                    fontSize: 15),
                               ),
                               controller: emailController,
                               validator: (value) {
@@ -185,13 +186,14 @@ class _LoginState extends State<Login> {
                                       const EdgeInsets.only(top: 12, left: 10),
                                   child: FaIcon(FontAwesomeIcons.key),
                                 ),
-                                labelText: 'Password: ',
+                                labelText: 'Password',
                                 labelStyle: TextStyle(fontSize: 20.0),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
                                 errorStyle: TextStyle(
-                                    color: Colors.redAccent, fontSize: 15),
+                                    color: Color.fromARGB(200, 0, 32, 63),
+                                    fontSize: 15),
                               ),
                               controller: passwordController,
                               validator: (value) {
@@ -360,12 +362,12 @@ class _LoginState extends State<Login> {
                                       );
                                     }
                                   },
-                                  // icon: Image.asset(
-                                  //   'assets/google_logo.png',
-                                  //   height: 28,
-                                  //   width: 28,
-                                  // ),
-                                  icon: FaIcon(FontAwesomeIcons.google),
+                                  icon: Image.asset(
+                                    'assets/google_logo.png',
+                                    height: 28,
+                                    width: 28,
+                                  ),
+                                  //icon: FaIcon(FontAwesomeIcons.google),
                                   label: Text(
                                     'Sign in with Google',
                                     style: TextStyle(fontSize: 16),
