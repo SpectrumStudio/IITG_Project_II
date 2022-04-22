@@ -65,8 +65,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(colors: [
-          Color.fromARGB(150, 0, 150, 242),
-          Color.fromARGB(150, 0, 242, 236)
+          Color.fromARGB(255, 0, 150, 242),
+          Color.fromARGB(255, 0, 242, 236),
+          Color.fromARGB(255, 0, 150, 242)
         ], begin: Alignment.topLeft, end: Alignment.bottomRight)),
         child: Center(
           child: Container(

@@ -110,8 +110,11 @@ class _LoginState extends State<Login> {
       body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(colors: [
-          Color.fromARGB(150, 0, 150, 242),
-          Color.fromARGB(150, 0, 242, 236)
+          Color.fromARGB(255, 0, 150, 242),
+          Color.fromARGB(255, 0, 242, 236),
+          Color.fromARGB(255, 0, 150, 242)
+          //Colors.white,
+          //Colors.white,
         ], begin: Alignment.topLeft, end: Alignment.bottomRight)),
         child: Center(
           child: Container(
