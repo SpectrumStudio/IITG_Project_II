@@ -109,10 +109,10 @@ class _LoginState extends State<Login> {
       resizeToAvoidBottomInset: false,
       body: Container(
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [Colors.purple, Colors.blueGrey],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight)),
+            gradient: LinearGradient(colors: [
+          Color.fromARGB(150, 0, 242, 236),
+          Color.fromARGB(150, 0, 150, 242)
+        ], begin: Alignment.topLeft, end: Alignment.bottomRight)),
         child: Center(
           child: Container(
             decoration: BoxDecoration(boxShadow: [

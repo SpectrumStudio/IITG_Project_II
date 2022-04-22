@@ -5,6 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker_demo/pages/login.dart';
 import 'package:image_picker_demo/pages/user/profile.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,6 +34,9 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
           theme: ThemeData(
+            textTheme: GoogleFonts.latoTextTheme(
+              Theme.of(context).textTheme,
+            ),
             primarySwatch: Colors.orange,
             //visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
