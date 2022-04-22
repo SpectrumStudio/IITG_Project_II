@@ -150,6 +150,11 @@ class _LoginState extends State<Login> {
                             child: TextFormField(
                               autofocus: false,
                               decoration: InputDecoration(
+                                prefixIcon: Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 12, left: 10),
+                                  child: FaIcon(FontAwesomeIcons.envelope),
+                                ),
                                 labelText: 'Email: ',
                                 labelStyle: TextStyle(fontSize: 20.0),
                                 border: OutlineInputBorder(
@@ -175,6 +180,11 @@ class _LoginState extends State<Login> {
                               autofocus: false,
                               obscureText: true,
                               decoration: InputDecoration(
+                                prefixIcon: Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 12, left: 10),
+                                  child: FaIcon(FontAwesomeIcons.key),
+                                ),
                                 labelText: 'Password: ',
                                 labelStyle: TextStyle(fontSize: 20.0),
                                 border: OutlineInputBorder(
@@ -216,36 +226,43 @@ class _LoginState extends State<Login> {
                                   ? CircularProgressIndicator(
                                       color: Colors.orange,
                                     )
-                                  : ElevatedButton(
-                                      style: ButtonStyle(
-                                        shape: MaterialStateProperty.all<
-                                            RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(30.0),
+                                  : Container(
+                                      height: 45,
+                                      width: MediaQuery.of(context).size.width -
+                                          200,
+                                      child: ElevatedButton(
+                                        style: ButtonStyle(
+                                          shape: MaterialStateProperty.all<
+                                              RoundedRectangleBorder>(
+                                            RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(30.0),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      onPressed: () async {
-                                        // Validate returns true if the form is valid, otherwise false.
-                                        if (_formKey.currentState!.validate()) {
-                                          setState(() {
-                                            //print("Hello");
-                                            email = emailController.text;
-                                            //print(email);
-                                            password = passwordController.text;
-                                          });
-                                          userLogin();
-                                          if (isLoading) return;
-                                          setState(() => isLoading = true);
-                                          await Future.delayed(
-                                              Duration(seconds: 1));
-                                          setState(() => isLoading = false);
-                                        }
-                                      },
-                                      child: Text(
-                                        'Login',
-                                        style: TextStyle(fontSize: 18.0),
+                                        onPressed: () async {
+                                          // Validate returns true if the form is valid, otherwise false.
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            setState(() {
+                                              //print("Hello");
+                                              email = emailController.text;
+                                              //print(email);
+                                              password =
+                                                  passwordController.text;
+                                            });
+                                            userLogin();
+                                            if (isLoading) return;
+                                            setState(() => isLoading = true);
+                                            await Future.delayed(
+                                                Duration(seconds: 1));
+                                            setState(() => isLoading = false);
+                                          }
+                                        },
+                                        child: Text(
+                                          'Login',
+                                          style: TextStyle(fontSize: 18.0),
+                                        ),
                                       ),
                                     ),
                               //SizedBox(width: 12),
@@ -282,11 +299,29 @@ class _LoginState extends State<Login> {
                           Container(
                             child: Column(
                               children: [
-                                Center(
-                                    child: Text(
-                                  "OR",
-                                  style: TextStyle(fontSize: 20),
-                                )),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: new Container(
+                                          margin: const EdgeInsets.only(
+                                              left: 10.0, right: 15.0),
+                                          child: Divider(
+                                            color: Colors.black,
+                                            height: 50,
+                                          )),
+                                    ),
+                                    Text("OR"),
+                                    Expanded(
+                                      child: new Container(
+                                          margin: const EdgeInsets.only(
+                                              left: 10.0, right: 15.0),
+                                          child: Divider(
+                                            color: Colors.black,
+                                            height: 50,
+                                          )),
+                                    ),
+                                  ],
+                                ),
                                 SizedBox(
                                   height: 26,
                                 ),
