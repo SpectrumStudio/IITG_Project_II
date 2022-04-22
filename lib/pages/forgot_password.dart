@@ -202,7 +202,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                                     ),
                                                     (route) => false)
                                               },
-                                          child: Text('Signup')),
+                                          child: Text('Signup',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16))),
                                     ],
                                   ),
                                 ),
@@ -220,7 +223,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                   },
                                   child: Text(
                                     'Login',
-                                    style: TextStyle(fontSize: 14.0),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
                                   ),
                                 ),
                               ],
