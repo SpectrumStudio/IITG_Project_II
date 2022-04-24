@@ -8,6 +8,7 @@ import 'package:tflite_flutter/tflite_flutter.dart';
 
 var redPar = "", greenPar = "", bluePar = "", intensityPar = "";
 var predValue = "";
+bool shouldDisplay = false;
 
 class MlPage extends StatefulWidget {
   final String red, green, blue, intensity;
@@ -95,6 +96,9 @@ class _MlPageState extends State<MlPage> {
               ),
               ElevatedButton(
                 onPressed: () {
+                  setState(() {
+                    shouldDisplay = !shouldDisplay;
+                  });
                   print("Will call the predData Function now : $redPar");
                   predData(redPar, greenPar, bluePar, intensityPar);
                 },
@@ -130,48 +134,49 @@ class _MlPageState extends State<MlPage> {
               SizedBox(
                 height: 50,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SaveInfo(),
-                          ),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.yellow,
-                      ),
-                      child: Text(
-                        'SAVE',
-                        style: TextStyle(fontSize: 18),
-                      )),
-                  ElevatedButton(
-                      onPressed: () {
-                        redPar = "";
-                        greenPar = "";
-                        bluePar = "";
-                        intensityPar = "";
-                        Navigator.pushAndRemoveUntil(
+              if (shouldDisplay == true)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
                             context,
-                            PageRouteBuilder(
-                              pageBuilder: (context, a, b) => TestList(),
-                              transitionDuration: Duration(seconds: 0),
+                            MaterialPageRoute(
+                              builder: (context) => SaveInfo(),
                             ),
-                            (route) => false);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.yellow,
-                      ),
-                      child: Text(
-                        'HOME',
-                        style: TextStyle(fontSize: 18),
-                      )),
-                ],
-              )
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.yellow,
+                        ),
+                        child: Text(
+                          'SAVE',
+                          style: TextStyle(fontSize: 18),
+                        )),
+                    ElevatedButton(
+                        onPressed: () {
+                          redPar = "";
+                          greenPar = "";
+                          bluePar = "";
+                          intensityPar = "";
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (context, a, b) => TestList(),
+                                transitionDuration: Duration(seconds: 0),
+                              ),
+                              (route) => false);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.yellow,
+                        ),
+                        child: Text(
+                          'HOME',
+                          style: TextStyle(fontSize: 18),
+                        )),
+                  ],
+                )
             ],
           ),
         ),
