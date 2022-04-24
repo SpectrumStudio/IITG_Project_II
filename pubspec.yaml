@@ -51,6 +51,7 @@ dependencies:
   firebase_storage: ^10.2.11
   intl: ^0.17.0
   google_fonts: ^2.3.1
+  gauges: ^1.0.0
 
 
 flutter_native_splash:
