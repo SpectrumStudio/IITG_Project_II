@@ -33,6 +33,7 @@ class _MlPageState extends State<MlPage> {
   void initState() {
     shouldDisplay = false;
     pointerValue = 0.00;
+    gaugeAno = "";
     super.initState();
     predValue = "click Predict button to predict the result";
   }
