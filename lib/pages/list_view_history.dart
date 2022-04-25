@@ -72,7 +72,7 @@ class _ListViewHistoryState extends State<ListViewHistory> {
                             BoxShadow(
                                 blurRadius: 24.0,
                                 spreadRadius: 16.0,
-                                color: Colors.black.withOpacity(0.2))
+                                color: Colors.black.withOpacity(0.12))
                           ]),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(16.0),
@@ -96,9 +96,9 @@ class _ListViewHistoryState extends State<ListViewHistory> {
                                   ),
                                   subtitle: Column(children: [
                                     Text(
-                                      'Id: ' +
-                                          data['uid'] +
-                                          "\n" +
+                                      // 'Id: ' +
+                                      //     data['uid'] +
+                                      //     "\n" +
                                           'Full Name: ' +
                                           data['fullname'] +
                                           "\n" +
@@ -132,10 +132,21 @@ class _ListViewHistoryState extends State<ListViewHistory> {
                                         fontSize: 18,
                                       ),
                                     ),
-                                    SizedBox(height: 15),
-                                    Icon(
+                                    //SizedBox(height: 15),
+                                    // Icon(
+                                    //   Icons.circle,
+                                    //   size: 35,
+                                    //   color: Color.fromARGB(
+                                    //       255,
+                                    //       double.parse(data['r_value']).toInt(),
+                                    //       double.parse(data['g_value']).toInt(),
+                                    //       double.parse(data['b_value'])
+                                    //           .toInt()),
+                                    // )
+                                  ]),
+                                  leading: Icon(
                                       Icons.circle,
-                                      size: 35,
+                                      size: 40,
                                       color: Color.fromARGB(
                                           255,
                                           double.parse(data['r_value']).toInt(),
@@ -143,14 +154,13 @@ class _ListViewHistoryState extends State<ListViewHistory> {
                                           double.parse(data['b_value'])
                                               .toInt()),
                                     )
-                                  ]),
                                 ),
                               ),
                             ),
                           ),
                         ),
                         SizedBox(
-                          height: 15,
+                          height: 12,
                         ),
                       ]),
                     );
