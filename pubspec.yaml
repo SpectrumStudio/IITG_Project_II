@@ -52,6 +52,7 @@ dependencies:
   intl: ^0.17.0
   google_fonts: ^2.3.1
   gauges: ^1.0.0
+  syncfusion_flutter_gauges: ^20.1.50
 
 
 flutter_native_splash:
