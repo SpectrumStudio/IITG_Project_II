@@ -140,8 +140,18 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Text("Color optimizer"),
           content: Column(mainAxisSize: MainAxisSize.min, children: [
             buildColorPicker(),
-            TextButton(
-                child: Text("Select"),
+            ElevatedButton(
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                  ),
+                ),
+                child: Text(
+                  "Select",
+                  style: TextStyle(fontSize: 20),
+                ),
                 onPressed: () {
                   optiR = color.red;
                   optiG = color.green;
@@ -325,7 +335,20 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                 ),
                                 onPressed: () async {
-                                  if (viewModel.image == null) return;
+                                  if (viewModel.image == null) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        backgroundColor: Colors.white,
+                                        duration: const Duration(seconds: 2),
+                                        content: Text(
+                                          "Please select an Image",
+                                          style: TextStyle(
+                                              fontSize: 18.0,
+                                              color: Colors.black),
+                                        ),
+                                      ),
+                                    );
+                                  }
                                   var image = await cropImage(viewModel.image);
                                   if (image == null) return;
                                   viewModel.setImage(image);
