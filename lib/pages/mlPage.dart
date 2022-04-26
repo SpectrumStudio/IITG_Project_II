@@ -1,4 +1,7 @@
 import 'package:get/get.dart';
+import 'dart:io';
+import 'dart:core';
+import 'dart:ui';
 import 'package:image_picker_demo/pages/saveinfo.dart';
 import 'package:image_picker_demo/pages/testList.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
@@ -87,169 +90,249 @@ class _MlPageState extends State<MlPage> {
     intensityPar = widget.intensity;
 
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text("Constructor — second page"),
-      // ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(12.0),
-        //alignment: Alignment.center,
-        child: Center(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 50,
-              ),
-              Text("Data passed to this page:", style: TextStyle(fontSize: 20)),
-              SizedBox(
-                height: 30,
-              ),
-              Text("Red: $redPar"),
-              Text("Green: $greenPar"),
-              Text("Blue: $bluePar"),
-              Text("Intensity: $intensityPar"),
-              SizedBox(
-                height: 20,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    shouldDisplay = true;
-                  });
-                  print("Will call the predData Function now : $redPar");
-                  predData(redPar, greenPar, bluePar, intensityPar);
-                },
-                style: ElevatedButton.styleFrom(
-                    primary: Colors.yellowAccent,
-                    textStyle: TextStyle(
-                      fontSize: 18,
-                    )),
-                child: Text(
-                  'Predict',
-                  style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.bold),
+      body: Stack(
+          //padding: EdgeInsets.all(12.0),
+          //alignment: Alignment.center,
+          children: [
+            Positioned(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              //left: 20,
+              //right: 20,
+              left: 130,
+              top: Get.height * 0.17,
+              child: Container(
+                //height: MediaQuery.of(context).size.height,
+                //width: MediaQuery.of(context).size.width,
+                alignment: Alignment.bottomRight,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/flask.png'),
+                    //fit: BoxFit.fill,
+                  ),
+                  //shape: BoxShape.circle,
                 ),
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Column(
-                children: [
-                  Text(
-                    "Predicted Value: ",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    predValue,
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              Container(
-                height: 250,
-                width: 250,
-                child: SfRadialGauge(
-                  enableLoadingAnimation: true,
-                  animationDuration: 2500,
-                  axes: <RadialAxis>[
-                    RadialAxis(
-                      minimum: 0,
-                      maximum: 1,
-                      pointers: <GaugePointer>[
-                        NeedlePointer(
-                          animationType: AnimationType.easeOutBack,
-                          value: pointerValue,
-                          enableAnimation: true,
-                        )
-                      ],
-                      ranges: <GaugeRange>[
-                        GaugeRange(
-                          startValue: 0,
-                          endValue: 0.25,
-                          color: Color.fromARGB(255, 1, 214, 214),
-                        ),
-                        GaugeRange(
-                          startValue: 0.25,
-                          endValue: 0.5,
-                          color: Color.fromARGB(255, 133, 2, 255),
-                        ),
-                        GaugeRange(
-                          startValue: 0.5,
-                          endValue: 0.75,
-                          color: Color.fromARGB(255, 234, 0, 255),
-                        ),
-                        GaugeRange(
-                          startValue: 0.75,
-                          endValue: 1,
-                          color: Color.fromARGB(255, 255, 59, 59),
-                        )
-                      ],
-                      annotations: <GaugeAnnotation>[
-                        GaugeAnnotation(
-                          widget: Text(
-                            gaugeAno,
-                            style: TextStyle(fontSize: 15),
+            ),
+            Center(
+              child: Container(
+                decoration: BoxDecoration(boxShadow: [
+                  BoxShadow(
+                      blurRadius: 24.0,
+                      spreadRadius: 16.0,
+                      color: Colors.black.withOpacity(0.2))
+                ]),
+                child: ClipRRect(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(
+                      sigmaX: 8.0,
+                      sigmaY: 8.0,
+                    ),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(16.0),
+                          border: Border.all(
+                            width: 1.5,
+                            color: Colors.white.withOpacity(0.3),
+                          )),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 50,
                           ),
-                          positionFactor: 0.7,
-                          angle: 90,
-                        ),
-                      ],
-                    )
-                  ],
+                          Text("Concentration Predictor",
+                              style: TextStyle(
+                                  fontSize: 25, fontWeight: FontWeight.bold)),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Text("Red: $redPar", style: TextStyle(fontSize: 16)),
+                          Text("Green: $greenPar",
+                              style: TextStyle(fontSize: 16)),
+                          Text("Blue: $bluePar",
+                              style: TextStyle(fontSize: 16)),
+                          Text("Intensity: $intensityPar",
+                              style: TextStyle(fontSize: 16)),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          SizedBox(
+                            width: 120,
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                  ),
+                                ),
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  shouldDisplay = true;
+                                });
+                                print(
+                                    "Will call the predData Function now : $redPar");
+                                predData(
+                                    redPar, greenPar, bluePar, intensityPar);
+                              },
+                              child: Text(
+                                "PREDICT",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Column(
+                            children: [
+                              Text(
+                                "Predicted Value: ",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: 13,
+                              ),
+                              Text(
+                                predValue,
+                                style: TextStyle(fontSize: 18),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 50,
+                          ),
+                          Container(
+                            height: 250,
+                            width: 250,
+                            child: SfRadialGauge(
+                              enableLoadingAnimation: true,
+                              animationDuration: 2500,
+                              axes: <RadialAxis>[
+                                RadialAxis(
+                                  minimum: 0,
+                                  maximum: 1,
+                                  pointers: <GaugePointer>[
+                                    NeedlePointer(
+                                      animationType: AnimationType.easeOutBack,
+                                      value: pointerValue,
+                                      enableAnimation: true,
+                                    )
+                                  ],
+                                  ranges: <GaugeRange>[
+                                    GaugeRange(
+                                      startValue: 0,
+                                      endValue: 0.25,
+                                      color: Color.fromARGB(255, 1, 214, 214),
+                                    ),
+                                    GaugeRange(
+                                      startValue: 0.25,
+                                      endValue: 0.5,
+                                      color: Color.fromARGB(255, 133, 2, 255),
+                                    ),
+                                    GaugeRange(
+                                      startValue: 0.5,
+                                      endValue: 0.75,
+                                      color: Color.fromARGB(255, 234, 0, 255),
+                                    ),
+                                    GaugeRange(
+                                      startValue: 0.75,
+                                      endValue: 1,
+                                      color: Color.fromARGB(255, 255, 59, 59),
+                                    )
+                                  ],
+                                  annotations: <GaugeAnnotation>[
+                                    GaugeAnnotation(
+                                      widget: Text(
+                                        gaugeAno,
+                                        style: TextStyle(fontSize: 15),
+                                      ),
+                                      positionFactor: 0.7,
+                                      angle: 90,
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                          if (shouldDisplay == true)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                SizedBox(
+                                  width: 120,
+                                  child: ElevatedButton(
+                                      style: ButtonStyle(
+                                        shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30.0),
+                                          ),
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => SaveInfo(),
+                                          ),
+                                        );
+                                      },
+                                      child: Text(
+                                        'SAVE',
+                                        style: TextStyle(fontSize: 18),
+                                      )),
+                                ),
+                                SizedBox(
+                                  width: 120,
+                                  child: ElevatedButton(
+                                      style: ButtonStyle(
+                                        shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30.0),
+                                          ),
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        redPar = "";
+                                        greenPar = "";
+                                        bluePar = "";
+                                        intensityPar = "";
+                                        Navigator.pushAndRemoveUntil(
+                                            context,
+                                            PageRouteBuilder(
+                                              pageBuilder: (context, a, b) =>
+                                                  TestList(),
+                                              transitionDuration:
+                                                  Duration(seconds: 0),
+                                            ),
+                                            (route) => false);
+                                      },
+                                      child: Text(
+                                        'HOME',
+                                        style: TextStyle(fontSize: 18),
+                                      )),
+                                ),
+                              ],
+                            )
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ),
-              if (shouldDisplay == true)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SaveInfo(),
-                            ),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.yellow,
-                        ),
-                        child: Text(
-                          'SAVE',
-                          style: TextStyle(fontSize: 18),
-                        )),
-                    ElevatedButton(
-                        onPressed: () {
-                          redPar = "";
-                          greenPar = "";
-                          bluePar = "";
-                          intensityPar = "";
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              PageRouteBuilder(
-                                pageBuilder: (context, a, b) => TestList(),
-                                transitionDuration: Duration(seconds: 0),
-                              ),
-                              (route) => false);
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.yellow,
-                        ),
-                        child: Text(
-                          'HOME',
-                          style: TextStyle(fontSize: 18),
-                        )),
-                  ],
-                )
-            ],
-          ),
-        ),
-      ),
+            ),
+          ]),
     );
   }
 }

@@ -294,15 +294,12 @@ class _LoginState extends State<Login> {
                                   Text("Don't have an Account? "),
                                   TextButton(
                                     onPressed: () => {
-                                      Navigator.pushAndRemoveUntil(
-                                          context,
-                                          PageRouteBuilder(
-                                            pageBuilder: (context, a, b) =>
-                                                Signup(),
-                                            transitionDuration:
-                                                Duration(seconds: 0),
-                                          ),
-                                          (route) => false)
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Signup(),
+                                        ),
+                                      )
                                     },
                                     child: Text('Signup',
                                         style: TextStyle(

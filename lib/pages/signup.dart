@@ -314,15 +314,10 @@ class _SignupState extends State<Signup> {
                                   Text("Already have an Account?"),
                                   TextButton(
                                       onPressed: () => {
-                                            Navigator.pushReplacement(
+                                            Navigator.push(
                                               context,
-                                              PageRouteBuilder(
-                                                pageBuilder: (context,
-                                                        animation1,
-                                                        animation2) =>
-                                                    Login(),
-                                                transitionDuration:
-                                                    Duration(seconds: 0),
+                                              MaterialPageRoute(
+                                                builder: (context) => Login(),
                                               ),
                                             )
                                           },

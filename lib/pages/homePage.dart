@@ -1,7 +1,11 @@
+import 'dart:ffi';
 import 'dart:io';
 import 'dart:core';
+import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 import 'package:image_picker_demo/pages/list_view_history.dart';
 
@@ -152,219 +156,299 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Row(
-      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //     children: [
-      //       Text("Sample Picker"),
-      //       IconButton(
-      //         onPressed: () async => {
-      //           await FirebaseAuth.instance.signOut(),
-      //           Navigator.pushAndRemoveUntil(
-      //               context,
-      //               MaterialPageRoute(
-      //                 builder: (context) => Login(),
-      //               ),
-      //               (route) => false),
-      //           await GoogleSignIn().signOut(),
-      //         },
-      //         icon: const Icon(
-      //           Icons.logout,
-      //           color: Color.fromARGB(255, 112, 33, 33),
-      //         ),
-      //       )
-      //     ],
-      //   ),
-      // ),
-
-      body: SingleChildScrollView(
-        child: ChangeNotifierProvider<HomePageViewModel>(
-          create: (context) => HomePageViewModel(),
-          child: Consumer<HomePageViewModel>(
-            builder: (context, viewModel, child) {
-              return Center(
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 60,
-                    ),
-                    if (viewModel.image == null) Icon(Icons.camera, size: 100),
-                    if (viewModel.image != null)
-                      //Image.file(viewModel.image),
-
-                      // Column(
-
-                      //   children[],: Padding(
-                      //     //padding: const EdgeInsets.only(left: 20, right: 20),
-                      //     padding: const EdgeInsets.all(16.0),
-                      //     child: ClipOval(
-                      //       child: Image.file(
-                      //         viewModel.image,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                      Center(
-                        child: CircleAvatar(
-                          radius: 100,
-                          foregroundImage: Image.file(
-                            viewModel.image,
-                          ).image,
-                          //child: Image.file(viewModel.image),
-                          backgroundColor: Colors.transparent,
-                        ),
-                      ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    // CheckboxListTile(
-                    //   title: Text(
-                    //     'Crop after picked',
-                    //     style: TextStyle(color: Colors.indigo, fontSize: 18),
-                    //   ),
-                    //   value: viewModel.cropAfterPicked,
-                    //   onChanged: (value) {
-                    //     viewModel.setCropAfterPicker(value!);
-                    //   },
-                    // ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        var image = await getImageFromSource(
-                            ImageSource.gallery, viewModel.cropAfterPicked);
-                        if (image == null) return;
-                        viewModel.setImage(image);
-                        print(Temp);
-                      },
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.yellowAccent,
-                          textStyle: TextStyle(fontSize: 18)),
-                      child: Text(
-                        'Get sample from gallery',
-                        style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        var image = await getImageFromSource(
-                            ImageSource.camera, viewModel.cropAfterPicked);
-                        if (image == null) return;
-                        viewModel.setImage(image);
-                      },
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.yellowAccent,
-                          textStyle: TextStyle(fontSize: 18)),
-                      child: Text(
-                        'Get sample from camera',
-                        style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        if (viewModel.image == null) return;
-                        var image = await cropImage(viewModel.image);
-                        if (image == null) return;
-                        viewModel.setImage(image);
-                      },
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.yellowAccent,
-                          textStyle: TextStyle(
-                            fontSize: 18,
-                          )),
-                      child: Text(
-                        'Crop sample',
-                        style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    if (viewModel.image != null)
-                      FlatButton(
-                        onPressed: () {
-                          color = Color.fromARGB(255, optiR, optiG, optiB);
-                          print("color is:" + color.toString());
-                          pickColor(context);
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle, color: color),
-                          width: 100,
-                          height: 100,
-                        ),
-                      ),
-                    const SizedBox(height: 10),
-                    if (viewModel.image != null)
-                      new Text("Tap the circle to optimise the RGB values."),
-                    const SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () async {
-                        print("Debug:");
-                        //Printy();
-                        if (R == null || G == null || B == null) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              backgroundColor: Colors.orangeAccent,
-                              duration: const Duration(seconds: 2),
-                              content: Text(
-                                "No Image selected",
-                                style: TextStyle(
-                                    fontSize: 18.0, color: Colors.black),
-                              ),
-                            ),
-                          );
-                        } else {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MlPage(
-                                    red: R, green: G, blue: B, intensity: I)),
-                          );
-                          //addData();
-                        }
-                        //print("RGBI:"+RGBISuccess.toString());
-                        //SharedPreferences prefs = await SharedPreferences.getInstance();
-                        //var RGBI = (prefs.getString('RGBI')??'');
-                      },
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.yellowAccent,
-                          textStyle: TextStyle(
-                            fontSize: 18,
-                          )),
-                      child: Text(
-                        'Analyze',
-                        style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () async {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ListViewHistory(),
-                          ),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.yellowAccent,
-                          textStyle: TextStyle(
-                            fontSize: 18,
-                          )),
-                      child: Text(
-                        'History',
-                        style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
+      resizeToAvoidBottomInset: false,
+      body: Stack(children: [
+        Positioned(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          //left: 20,
+          //right: 20,
+          left: 130,
+          top: Get.height * 0.17,
+          child: Container(
+            //height: MediaQuery.of(context).size.height,
+            //width: MediaQuery.of(context).size.width,
+            alignment: Alignment.bottomRight,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/flask.png'),
+                //fit: BoxFit.fill,
+              ),
+              //shape: BoxShape.circle,
+            ),
           ),
         ),
-      ),
+        Container(
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+                blurRadius: 24.0,
+                spreadRadius: 16.0,
+                color: Colors.black.withOpacity(0.2))
+          ]),
+          child: ClipRRect(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 8.0,
+                sigmaY: 8.0,
+              ),
+              child: Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(16.0),
+                    border: Border.all(
+                      width: 1.5,
+                      color: Colors.white.withOpacity(0.3),
+                    )),
+                child: ChangeNotifierProvider<HomePageViewModel>(
+                  create: (context) => HomePageViewModel(),
+                  child: Consumer<HomePageViewModel>(
+                    builder: (context, viewModel, child) {
+                      return Center(
+                        child: Column(
+                          children: [
+                            const SizedBox(
+                              height: 60,
+                            ),
+                            if (viewModel.image == null)
+                              FaIcon(
+                                FontAwesomeIcons.cameraRetro,
+                                size: 150,
+                                color: Color.fromARGB(150, 0, 32, 63),
+                              ),
+                            if (viewModel.image != null)
+                              //Image.file(viewModel.image),
+
+                              // Column(
+
+                              //   children[],: Padding(
+                              //     //padding: const EdgeInsets.only(left: 20, right: 20),
+                              //     padding: const EdgeInsets.all(16.0),
+                              //     child: ClipOval(
+                              //       child: Image.file(
+                              //         viewModel.image,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              Center(
+                                child: CircleAvatar(
+                                  radius: 105,
+                                  backgroundColor: Colors.blueAccent,
+                                  child: CircleAvatar(
+                                    radius: 100,
+                                    foregroundImage: Image.file(
+                                      viewModel.image,
+                                    ).image,
+                                    //child: Image.file(viewModel.image),
+                                    backgroundColor: Colors.transparent,
+                                  ),
+                                ),
+                              ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            // CheckboxListTile(
+                            //   title: Text(
+                            //     'Crop after picked',
+                            //     style: TextStyle(color: Colors.indigo, fontSize: 18),
+                            //   ),
+                            //   value: viewModel.cropAfterPicked,
+                            //   onChanged: (value) {
+                            //     viewModel.setCropAfterPicker(value!);
+                            //   },
+                            // ),
+                            SizedBox(
+                              height: 40,
+                              width: 300,
+                              child: ElevatedButton(
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                    ),
+                                  ),
+                                ),
+                                onPressed: () async {
+                                  var image = await getImageFromSource(
+                                      ImageSource.gallery,
+                                      viewModel.cropAfterPicked);
+                                  if (image == null) return;
+                                  viewModel.setImage(image);
+                                  print(Temp);
+                                },
+                                child: Text(
+                                  'Get sample from Gallery',
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 15),
+                            SizedBox(
+                              height: 40,
+                              width: 300,
+                              child: ElevatedButton(
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                    ),
+                                  ),
+                                ),
+                                onPressed: () async {
+                                  var image = await getImageFromSource(
+                                      ImageSource.camera,
+                                      viewModel.cropAfterPicked);
+                                  if (image == null) return;
+                                  viewModel.setImage(image);
+                                },
+                                child: Text(
+                                  'Get sample from Camera',
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 15),
+                            SizedBox(
+                              height: 40,
+                              width: 300,
+                              child: ElevatedButton(
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                    ),
+                                  ),
+                                ),
+                                onPressed: () async {
+                                  if (viewModel.image == null) return;
+                                  var image = await cropImage(viewModel.image);
+                                  if (image == null) return;
+                                  viewModel.setImage(image);
+                                },
+                                child: Text(
+                                  'Crop sample',
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            if (viewModel.image != null)
+                              FlatButton(
+                                onPressed: () {
+                                  color =
+                                      Color.fromARGB(255, optiR, optiG, optiB);
+                                  print("color is:" + color.toString());
+                                  pickColor(context);
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: color,
+                                      border:
+                                          Border.all(color: Colors.blueAccent)),
+                                  width: 100,
+                                  height: 100,
+                                ),
+                              ),
+                            const SizedBox(height: 10),
+                            if (viewModel.image != null)
+                              new Text(
+                                "Tap the circle to optimise the RGB values.",
+                                style: TextStyle(fontSize: 17),
+                              ),
+                            const SizedBox(height: 20),
+                            SizedBox(
+                              height: 40,
+                              width: 180,
+                              child: ElevatedButton(
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                    ),
+                                  ),
+                                ),
+                                onPressed: () async {
+                                  print("Debug:");
+                                  if (R == null || G == null || B == null) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        backgroundColor: Colors.white,
+                                        duration: const Duration(seconds: 2),
+                                        content: Text(
+                                          "No Image selected",
+                                          style: TextStyle(
+                                              fontSize: 18.0,
+                                              color: Colors.black),
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => MlPage(
+                                              red: R,
+                                              green: G,
+                                              blue: B,
+                                              intensity: I)),
+                                    );
+                                    //addData();
+                                  }
+                                  //print("RGBI:"+RGBISuccess.toString());
+                                  //SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  //var RGBI = (prefs.getString('RGBI')??'');
+                                },
+                                child: Text(
+                                  'Analyze',
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 15),
+                            SizedBox(
+                              height: 40,
+                              width: 180,
+                              child: ElevatedButton(
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                    ),
+                                  ),
+                                ),
+                                onPressed: () async {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ListViewHistory(),
+                                    ),
+                                  );
+                                },
+                                child: Text(
+                                  'History',
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ]),
     );
   }
 }
