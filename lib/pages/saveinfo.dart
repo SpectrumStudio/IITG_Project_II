@@ -8,12 +8,14 @@ import 'package:image_picker_demo/pages/login.dart';
 import 'package:image_picker_demo/pages/mlPage.dart';
 import 'package:image_picker_demo/pages/testList.dart';
 import 'package:intl/intl.dart';
+import 'package:numberpicker/numberpicker.dart';
 
 var name = "";
 var age = "";
-var sex = "Male";
+var sex = "";
 var location = "";
 enum SingingCharacter { Male, Female, Others }
+var _currentHorizontalIntValue = 18;
 
 class SaveInfo extends StatefulWidget {
   const SaveInfo({Key? key}) : super(key: key);
@@ -30,7 +32,8 @@ class _SaveInfoState extends State<SaveInfo> {
   //final sexController = TextEditingController();
   final locationController = TextEditingController();
 
-  SingingCharacter? gender = SingingCharacter.Male;
+  //SingingCharacter? gender = SingingCharacter.Male;
+  SingingCharacter? gender;
 
   @override
   void dispose() {
@@ -59,12 +62,19 @@ class _SaveInfoState extends State<SaveInfo> {
                       padding: const EdgeInsets.only(
                         left: 16.0,
                       ),
-                      child: Text(
-                        'Enter the details below',
-                        style: TextStyle(fontSize: 22),
-                      ),
                     ),
                   ],
+                ),
+                Container(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      'User Details',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
                 ),
                 SizedBox(
                   height: 30,
@@ -93,53 +103,7 @@ class _SaveInfoState extends State<SaveInfo> {
                   ),
                 ),
                 //SizedBox(height: 10,),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 10.0),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 12, right: 12),
-                    child: TextFormField(
-                      autofocus: false,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        labelText: 'Age',
-                        labelStyle: TextStyle(fontSize: 20.0),
-                        border: OutlineInputBorder(),
-                        errorStyle:
-                            TextStyle(color: Colors.redAccent, fontSize: 15),
-                      ),
-                      controller: ageController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your age';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                ),
-                // Container(
-                //   margin: EdgeInsets.symmetric(vertical: 10.0),
-                //   child: Padding(
-                //     padding: const EdgeInsets.only(left: 12, right: 12),
-                //     child: TextFormField(
-                //       autofocus: false,
-                //       decoration: InputDecoration(
-                //         labelText: 'Sex',
-                //         labelStyle: TextStyle(fontSize: 20.0),
-                //         border: OutlineInputBorder(),
-                //         errorStyle:
-                //             TextStyle(color: Colors.redAccent, fontSize: 15),
-                //       ),
-                //       controller: sexController,
-                //       validator: (value) {
-                //         if (value == null || value.isEmpty) {
-                //           return 'Please enter sex';
-                //         }
-                //         return null;
-                //       },
-                //     ),
-                //   ),
-                // ),
+
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 10.0),
                   child: Padding(
@@ -164,9 +128,62 @@ class _SaveInfoState extends State<SaveInfo> {
                   ),
                 ),
                 Container(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Age',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 10.0),
+                  // child: Padding(
+                  //   padding: const EdgeInsets.only(left: 12, right: 12),
+                  //   child: TextFormField(
+                  //     autofocus: false,
+                  //     keyboardType: TextInputType.number,
+                  //     decoration: InputDecoration(
+                  //       labelText: 'Age',
+                  //       labelStyle: TextStyle(fontSize: 20.0),
+                  //       border: OutlineInputBorder(),
+                  //       errorStyle:
+                  //           TextStyle(color: Colors.redAccent, fontSize: 15),
+                  //     ),
+                  //     controller: ageController,
+                  //     validator: (value) {
+                  //       if (value == null || value.isEmpty) {
+                  //         return 'Please enter your age';
+                  //       }
+                  //       return null;
+                  //     },
+                  //   ),
+                  // ),
+                  child: NumberPicker(
+                    value: _currentHorizontalIntValue,
+                    minValue: 10,
+                    maxValue: 120,
+                    step: 1,
+                    itemHeight: 50,
+                    axis: Axis.horizontal,
+                    onChanged: (value) => setState(() {
+                      _currentHorizontalIntValue = value;
+                      age = _currentHorizontalIntValue.toString();
+                    }),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: Colors.black26),
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 10.0),
                   child: Column(
                     children: [
-                      Text("Gender"),
+                      Text(
+                        "Gender",
+                        style: TextStyle(fontSize: 18),
+                      ),
                       ListTile(
                         title: const Text('Male'),
                         leading: Radio<SingingCharacter>(
