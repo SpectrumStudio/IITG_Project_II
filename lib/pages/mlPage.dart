@@ -158,9 +158,8 @@ class _MlPageState extends State<MlPage> {
                   animationDuration: 2500,
                   axes: <RadialAxis>[
                     RadialAxis(
-                      minimum: 0, maximum: 1,
-                      //startAngle: 225,
-                      //endAngle: 315,
+                      minimum: 0,
+                      maximum: 1,
                       pointers: <GaugePointer>[
                         NeedlePointer(
                           animationType: AnimationType.easeOutBack,

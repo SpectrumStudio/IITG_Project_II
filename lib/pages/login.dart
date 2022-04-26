@@ -108,24 +108,6 @@ class _LoginState extends State<Login> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(
-        // decoration: BoxDecoration(
-        //     gradient: LinearGradient(colors: [
-        //   Color.fromARGB(255, 0, 150, 242),
-        //   Color.fromARGB(255, 0, 242, 236),
-        //   Color.fromARGB(255, 0, 150, 242)
-        //   //Colors.white,
-        //   //Colors.white,
-        // ], begin: Alignment.topLeft, end: Alignment.bottomRight)),
-        //height: 120.0,
-        //width: 120.0,
-        // decoration: BoxDecoration(
-        //   image: DecorationImage(
-        //     image: AssetImage('assets/flask.png'),
-        //     //fit: BoxFit.fill,
-
-        //   ),
-        //   shape: BoxShape.circle,
-        // ),
         children: [
           Positioned(
             height: MediaQuery.of(context).size.height,
