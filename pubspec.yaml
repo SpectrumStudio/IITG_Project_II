@@ -39,7 +39,6 @@ dependencies:
   chaquopy: ^0.0.12
   firebase_auth: ^3.3.11
   firebase_core: ^1.13.1
-  double_back_to_close_app: ^2.1.0
   google_sign_in: ^5.2.4
   get: ^4.6.1
   font_awesome_flutter: ^10.1.0
@@ -51,13 +50,12 @@ dependencies:
   firebase_storage: ^10.2.11
   intl: ^0.17.0
   google_fonts: ^2.3.1
-  gauges: ^1.0.0
   syncfusion_flutter_gauges: ^20.1.50
   numberpicker: ^2.1.1
 
 
 flutter_native_splash:
-  color: "#ffffff"
+  color: "#d4d4d4"
   image: assets/splash.png
 
 
@@ -109,3 +107,4 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+# flutter pub run flutter_native_splash:create

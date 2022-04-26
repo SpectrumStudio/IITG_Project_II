@@ -1,9 +1,6 @@
-import 'dart:ffi';
 import 'dart:io';
 import 'dart:core';
 import 'dart:ui';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 

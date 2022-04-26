@@ -1,15 +1,11 @@
 import 'package:get/get.dart';
-import 'dart:io';
 import 'dart:core';
 import 'dart:ui';
 import 'package:image_picker_demo/pages/saveinfo.dart';
 import 'package:image_picker_demo/pages/testList.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
-import 'homePage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
-import 'package:gauges/gauges.dart';
 
 var redPar = "", greenPar = "", bluePar = "", intensityPar = "";
 var predValue = "";

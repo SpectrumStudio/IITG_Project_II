@@ -1,12 +1,9 @@
-import 'dart:ffi';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:image_picker_demo/pages/Nodata.dart';
 import 'package:image_picker_demo/pages/login.dart';
-import 'package:image_picker_demo/pages/saveinfo.dart';
 
 class ListViewHistory extends StatefulWidget {
   @override
@@ -90,61 +87,61 @@ class _ListViewHistoryState extends State<ListViewHistory> {
                                       color: Colors.white.withOpacity(0.3),
                                     )),
                                 child: ListTile(
-                                  title: Text(
-                                    'Username: ' + data['username'],
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                  subtitle: Column(children: [
-                                    Text(
-                                      // 'Id: ' +
-                                      //     data['uid'] +
-                                      //     "\n" +
-                                          'Full Name: ' +
-                                          data['fullname'] +
-                                          "\n" +
-                                          'Age: ' +
-                                          data['age'] +
-                                          "\n" +
-                                          'Sex: ' +
-                                          data['sex'] +
-                                          "\n" +
-                                          'Location: ' +
-                                          data['location'] +
-                                          "\n" +
-                                          'Created on: ' +
-                                          data['created'] +
-                                          "\n" +
-                                          'Red Value: ' +
-                                          data['r_value'] +
-                                          "\n" +
-                                          'Green Value: ' +
-                                          data['g_value'] +
-                                          "\n" +
-                                          'Blue Value: ' +
-                                          data['b_value'] +
-                                          "\n" +
-                                          'Intensity Value: ' +
-                                          data['i_value'] +
-                                          "\n" +
-                                          'Predicted Result: ' +
-                                          data['pred_value'],
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                      ),
+                                    title: Text(
+                                      'Username: ' + data['username'],
+                                      style: TextStyle(fontSize: 20),
                                     ),
-                                    //SizedBox(height: 15),
-                                    // Icon(
-                                    //   Icons.circle,
-                                    //   size: 35,
-                                    //   color: Color.fromARGB(
-                                    //       255,
-                                    //       double.parse(data['r_value']).toInt(),
-                                    //       double.parse(data['g_value']).toInt(),
-                                    //       double.parse(data['b_value'])
-                                    //           .toInt()),
-                                    // )
-                                  ]),
-                                  leading: Icon(
+                                    subtitle: Column(children: [
+                                      Text(
+                                        // 'Id: ' +
+                                        //     data['uid'] +
+                                        //     "\n" +
+                                        'Full Name: ' +
+                                            data['fullname'] +
+                                            "\n" +
+                                            'Age: ' +
+                                            data['age'] +
+                                            "\n" +
+                                            'Sex: ' +
+                                            data['sex'] +
+                                            "\n" +
+                                            'Location: ' +
+                                            data['location'] +
+                                            "\n" +
+                                            'Created on: ' +
+                                            data['created'] +
+                                            "\n" +
+                                            'Red Value: ' +
+                                            data['r_value'] +
+                                            "\n" +
+                                            'Green Value: ' +
+                                            data['g_value'] +
+                                            "\n" +
+                                            'Blue Value: ' +
+                                            data['b_value'] +
+                                            "\n" +
+                                            'Intensity Value: ' +
+                                            data['i_value'] +
+                                            "\n" +
+                                            'Predicted Result: ' +
+                                            data['pred_value'],
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      //SizedBox(height: 15),
+                                      // Icon(
+                                      //   Icons.circle,
+                                      //   size: 35,
+                                      //   color: Color.fromARGB(
+                                      //       255,
+                                      //       double.parse(data['r_value']).toInt(),
+                                      //       double.parse(data['g_value']).toInt(),
+                                      //       double.parse(data['b_value'])
+                                      //           .toInt()),
+                                      // )
+                                    ]),
+                                    leading: Icon(
                                       Icons.circle,
                                       size: 40,
                                       color: Color.fromARGB(
@@ -153,8 +150,7 @@ class _ListViewHistoryState extends State<ListViewHistory> {
                                           double.parse(data['g_value']).toInt(),
                                           double.parse(data['b_value'])
                                               .toInt()),
-                                    )
-                                ),
+                                    )),
                               ),
                             ),
                           ),
