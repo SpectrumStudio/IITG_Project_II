@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        package="com.example.image_picker_demo">
+        package="com.spectrumstudios.pgmaldigital">
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
          In most cases you can leave this as-is, but you if you want to provide
@@ -13,8 +13,8 @@
 
     <application
         android:name="${applicationName}"
-        android:label="IITG Project II"
-        android:icon="@mipmap/ic_launcher"
+        android:label="PG-Mal-Digital"
+        android:icon="@mipmap/launcher_icon"
         tools:replace="android:name"
         >
         <activity

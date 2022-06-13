@@ -1,4 +1,4 @@
-package com.example.image_picker_demo;
+package com.spectrumstudios.pgmaldigital;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;

@@ -184,44 +184,6 @@ class _TestListState extends State<TestList> {
                         ),
                       ),
                       onPressed: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            backgroundColor: Color.fromARGB(255, 255, 255, 255),
-                            duration: const Duration(seconds: 2),
-                            elevation: 6.0,
-                            content: Text(
-                              "Page Under Construction!",
-                              textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                  fontSize: 18.0, color: Colors.black),
-                            ),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        "Formaldehyde",
-                        style: TextStyle(
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Container(
-                    height: 45,
-                    width: MediaQuery.of(context).size.width - 150,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                        ),
-                      ),
-                      onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -240,41 +202,7 @@ class _TestListState extends State<TestList> {
                   SizedBox(
                     height: 15,
                   ),
-                  Container(
-                    height: 45,
-                    width: MediaQuery.of(context).size.width - 150,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                        ),
-                      ),
-                      onPressed: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            backgroundColor: Color.fromARGB(255, 255, 255, 255),
-                            duration: const Duration(seconds: 2),
-                            elevation: 6.0,
-                            content: Text(
-                              "Page Under Construction!",
-                              textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                  fontSize: 18.0, color: Colors.black),
-                            ),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        "Methanol",
-                        style: TextStyle(
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                  ),
+                  
                 ],
               ),
             ],

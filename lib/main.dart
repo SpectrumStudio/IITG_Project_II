@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         }
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
+          title: 'PG-Mal-Digital',
           theme: ThemeData(
             textTheme: GoogleFonts.latoTextTheme(
               Theme.of(context).textTheme,

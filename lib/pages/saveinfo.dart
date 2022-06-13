@@ -412,9 +412,46 @@ Future<void> addData(BuildContext context) async {
           'age': _currentHorizontalIntValue.toString(),
           'sex': sex,
           'location': location,
+          'r_value': redPar,
+          'g_value': greenPar,
+          'b_value': bluePar,
+          'i_value': intensityPar,
+          'pred_value': predValue,
         })
-        .then((value) => print("Details added successfully"))
-        .catchError((error) => print("Failed to add details: $error"));
+        .then(
+          (value) => showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Details saved successfully'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pushAndRemoveUntil(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, a, b) => TestList(),
+                        transitionDuration: Duration(seconds: 0),
+                      ),
+                      (route) => false),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+          ),
+        )
+        .catchError(
+          (error) => showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Details not saved! Retry'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+          ),
+        );
     ;
   }
   return;
